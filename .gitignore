@@ -12,6 +12,8 @@ dist
 dist-ssr
 *.local
 temp-template/
+api/config.php
+dist-upload.zip
 
 # Editor directories and files
 .vscode/*

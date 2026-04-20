@@ -21,38 +21,6 @@ This project includes:
 - Bootstrap Icons
 - PHP contact endpoint for form handling
 
-## Technical Notes
-
-- Built as a component-based single page application
-- Styling is handled through a central `App.css` file with section-based grouping
-- Bootstrap utility and grid classes are used where they help layout and responsiveness
-- Portfolio project images are imported locally from `src/assets`
-- The sidebar navigation supports desktop and mobile behavior
-- Scroll-based reveal animations are handled in React with `IntersectionObserver`
-- Contact form validation runs on the frontend before sending data to PHP
-- The backend endpoint returns JSON responses for success and error handling
-
-## Architecture
-
-- `App.jsx` composes the page sections in order
-- `Header.jsx` handles sidebar navigation, mobile toggle, and active section state
-- `Hero.jsx`, `About.jsx`, `Skills.jsx`, `Resume.jsx`, `Portfolio.jsx`, `Contact.jsx`, and `Footer.jsx` are split into focused UI sections
-- `api/contact.php` handles form validation and mail submission on the server side
-- Static images and media are stored under `src/assets`
-
-## Contact Form Flow
-
-```text
-React form -> frontend validation -> fetch POST request -> api/contact.php -> PHP validation -> mail() -> JSON response
-```
-
-## Environment Notes
-
-- Frontend development runs through Vite on `localhost:5173`
-- PHP form handling is intended to run through WAMP/Apache
-- For successful email delivery, PHP mail or SMTP must be configured locally or on the production server
-- If deployed without PHP support, the contact endpoint should be replaced with a service such as EmailJS, Formspree, or a custom backend
-
 ## Project Structure
 
 ```text
@@ -73,6 +41,7 @@ src/
 
 api/
   contact.php
+  config.example.php
 ```
 
 ## Run Locally
@@ -108,6 +77,14 @@ Important:
 - Local form delivery depends on PHP mail/SMTP being configured correctly
 - When running the frontend on Vite, the form targets the local WAMP path for this project
 - If mail is not configured in WAMP, the form will show an error message instead of sending
+- Production SMTP credentials should be stored in:
+
+```text
+api/config.php
+```
+
+- Do not commit `api/config.php` to GitHub
+- Use `api/config.example.php` as the template for server configuration
 
 ## Build
 
@@ -117,14 +94,14 @@ Create a production build with:
 npm run build
 ```
 
-## Deployment
+## Live Deployment
 
-This repository is ready to be deployed as:
+Recommended production setup:
 
-- a static frontend build for the React app
-- plus a PHP-capable environment if the contact form should send emails through `api/contact.php`
-
-If the final hosting platform does not support PHP, the contact form should be switched to another mail delivery solution before launch.
+- Upload the contents of `dist/` to your domain document root
+- Upload `api/contact.php` to `api/contact.php` on the server
+- Create `api/config.php` on the server based on `api/config.example.php`
+- Use a PHP-capable host for the contact form
 
 ## GitHub
 
