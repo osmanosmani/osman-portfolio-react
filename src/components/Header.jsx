@@ -13,6 +13,25 @@ const navItems = [
 function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [activeSection, setActiveSection] = useState('#hero')
+  const [pendingSection, setPendingSection] = useState('')
+
+  const scrollToSection = (href) => {
+    const target = document.querySelector(href)
+
+    if (!target) {
+      return
+    }
+
+    const headerOffset = window.innerWidth < 1200 ? 24 : 0
+    const targetTop = target.getBoundingClientRect().top + window.scrollY - headerOffset
+
+    window.scrollTo({
+      top: Math.max(targetTop, 0),
+      behavior: 'smooth',
+    })
+
+    window.history.replaceState(null, '', href)
+  }
 
   useEffect(() => {
     const sections = navItems
@@ -44,6 +63,19 @@ function Header() {
   }, [isMenuOpen])
 
   useEffect(() => {
+    if (!pendingSection || isMenuOpen) {
+      return
+    }
+
+    const timeoutId = window.setTimeout(() => {
+      scrollToSection(pendingSection)
+      setPendingSection('')
+    }, 60)
+
+    return () => window.clearTimeout(timeoutId)
+  }, [isMenuOpen, pendingSection])
+
+  useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1200) {
         setIsMenuOpen(false)
@@ -55,9 +87,17 @@ function Header() {
     return () => window.removeEventListener('resize', handleResize)
   }, [])
 
-  const handleNavClick = (href) => {
+  const handleNavClick = (event, href) => {
+    event.preventDefault()
     setActiveSection(href)
-    setIsMenuOpen(false)
+    setPendingSection(href)
+
+    if (isMenuOpen) {
+      setIsMenuOpen(false)
+    } else {
+      scrollToSection(href)
+      setPendingSection('')
+    }
   }
 
   return (
@@ -92,7 +132,11 @@ function Header() {
             />
           </div>
 
-          <a href="#hero" className="logo d-flex align-items-center justify-content-center">
+          <a
+            href="#hero"
+            className="logo d-flex align-items-center justify-content-center"
+            onClick={(event) => handleNavClick(event, '#hero')}
+          >
             <h1 className="sitename">Osman Osmani</h1>
           </a>
         </div>
@@ -104,7 +148,7 @@ function Header() {
                 <a
                   href={item.href}
                   className={activeSection === item.href ? 'active' : ''}
-                  onClick={() => handleNavClick(item.href)}
+                  onClick={(event) => handleNavClick(event, item.href)}
                 >
                   <i className={`${item.icon} navicon`}></i> {item.label}
                 </a>
