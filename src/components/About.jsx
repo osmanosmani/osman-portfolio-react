@@ -34,11 +34,13 @@ function About() {
           <span className="section-kicker">About Me</span>
           <h2>Full Stack Developer / Software Engineer</h2>
           <p>
-            Experienced and committed IT and Web Developer with over ten years of
-            experience in system development, web technologies, and database
-            management. I deliver end-to-end digital solutions from concept and
-            development to deployment and optimisation, with a strong focus on
-            quality, usability, and long-term reliability.
+            Experienced Web Developer with 10+ years of experience in web
+            development, system development, and database management. I work
+            with JavaScript, React, HTML, CSS, PHP, and SQL to build secure,
+            responsive, and reliable web solutions. My approach combines
+            practical implementation, technical curiosity, and continuous
+            learning, with a focus on clean structure, user-friendly solutions,
+            and meaningful digital results.
           </p>
         </div>
 

@@ -10,9 +10,11 @@ function Hero() {
               <h1>Osman Osmani</h1>
 
               <p className="hero-description">
-                Full Stack Developer / Software Engineer with 10+ years of
-                experience delivering secure, high-performance web solutions,
-                database-driven systems, and reliable digital platforms.
+                I’m a frontend-focused Web Developer with 10+ years of
+                experience building responsive, secure, and reliable digital
+                solutions. My background includes web development, databases,
+                and digital systems, with a strong focus on usability,
+                performance, and continuous improvement.
               </p>
 
               <div className="hero-actions">
