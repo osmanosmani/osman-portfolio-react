@@ -26,7 +26,13 @@ const getContactApiUrl = () => {
     return '/api/contact.php'
   }
 
-  if (window.location.port === '5173') {
+  const isLocalDevelopmentHost =
+    ['localhost', '127.0.0.1'].includes(window.location.hostname) &&
+    window.location.port &&
+    window.location.port !== '80' &&
+    window.location.port !== '443'
+
+  if (isLocalDevelopmentHost) {
     return 'http://localhost/profilo/osman-portfolio-react/api/contact.php'
   }
 
@@ -145,7 +151,12 @@ function Contact() {
                     </div>
                     <div>
                       <span className="contact-label">{item.label}</span>
-                      <a href={item.href} target={item.label === 'Website' ? '_blank' : undefined} rel={item.label === 'Website' ? 'noreferrer' : undefined}>
+                      <a
+                        href={item.href}
+                        target={item.label === 'Website' ? '_blank' : undefined}
+                        rel={item.label === 'Website' ? 'noopener noreferrer' : undefined}
+                        aria-label={item.label === 'Website' ? 'Visit osmanosmani.se' : undefined}
+                      >
                         {item.value}
                       </a>
                     </div>
@@ -171,6 +182,8 @@ function Contact() {
                       placeholder="Your name"
                       value={formData.name}
                       onChange={handleChange}
+                      autoComplete="name"
+                      required
                     />
                   </div>
                   <div className="col-md-6">
@@ -185,6 +198,8 @@ function Contact() {
                       placeholder="Your email"
                       value={formData.email}
                       onChange={handleChange}
+                      autoComplete="email"
+                      required
                     />
                   </div>
                   <div className="col-12">
@@ -199,6 +214,7 @@ function Contact() {
                       placeholder="Subject"
                       value={formData.subject}
                       onChange={handleChange}
+                      required
                     />
                   </div>
                   <div className="col-12">
@@ -213,11 +229,18 @@ function Contact() {
                       placeholder="Write your message"
                       value={formData.message}
                       onChange={handleChange}
+                      required
                     ></textarea>
                   </div>
                   {formStatus.message ? (
                     <div className="col-12">
-                      <div className={`form-status ${formStatus.type}`}>{formStatus.message}</div>
+                      <div
+                        className={`form-status ${formStatus.type}`}
+                        role={formStatus.type === 'error' ? 'alert' : 'status'}
+                        aria-live="polite"
+                      >
+                        {formStatus.message}
+                      </div>
                     </div>
                   ) : null}
                   <div className="col-12">

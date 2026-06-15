@@ -107,6 +107,7 @@ function Header() {
         className={`mobile-nav-toggle ${isMenuOpen ? 'active' : ''}`}
         aria-label="Toggle navigation"
         aria-expanded={isMenuOpen}
+        aria-controls="header"
         onClick={() => setIsMenuOpen((current) => !current)}
       >
         <i className={`bi ${isMenuOpen ? 'bi-x-lg' : 'bi-list'}`}></i>
@@ -127,7 +128,7 @@ function Header() {
           <div className="profile-img">
             <img
               src={profileSidebar}
-              alt="Osman Osmani"
+              alt="Portrait of Osman Osmani"
               className="img-fluid"
             />
           </div>
@@ -136,8 +137,9 @@ function Header() {
             href="#hero"
             className="logo d-flex align-items-center justify-content-center"
             onClick={(event) => handleNavClick(event, '#hero')}
+            aria-label="Go to Home section"
           >
-            <h1 className="sitename">Osman Osmani</h1>
+            <span className="sitename">Osman Osmani</span>
           </a>
         </div>
 
@@ -148,6 +150,7 @@ function Header() {
                 <a
                   href={item.href}
                   className={activeSection === item.href ? 'active' : ''}
+                  aria-current={activeSection === item.href ? 'page' : undefined}
                   onClick={(event) => handleNavClick(event, item.href)}
                 >
                   <i className={`${item.icon} navicon`}></i> {item.label}
@@ -158,13 +161,25 @@ function Header() {
         </nav>
 
         <div className="social-links text-center">
-          <a href="https://www.linkedin.com" className="linkedin" target="_blank" rel="noreferrer">
+          <a
+            href="https://www.linkedin.com"
+            className="linkedin"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit LinkedIn"
+          >
             <i className="bi bi-linkedin"></i>
           </a>
-          <a href="https://github.com/osmanosmani" className="github" target="_blank" rel="noreferrer">
+          <a
+            href="https://github.com/osmanosmani"
+            className="github"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit GitHub"
+          >
             <i className="bi bi-github"></i>
           </a>
-          <a href="mailto:osmanosmani@gmail.com" className="envelope">
+          <a href="mailto:osmanosmani@gmail.com" className="envelope" aria-label="Send email">
             <i className="bi bi-envelope"></i>
           </a>
         </div>

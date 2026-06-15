@@ -52,7 +52,7 @@ function Hero() {
               <div className="image-wrapper">
                 <img
                   src={profileHero}
-                  alt="Osman Osmani"
+                  alt="Portrait of Osman Osmani"
                   className="img-fluid main-image"
                 />
 

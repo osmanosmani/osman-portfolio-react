@@ -12,6 +12,12 @@ function Portfolio() {
   const secondaryFeaturedProjects = featuredProjects.filter(
     (project) => project.id !== primaryFeaturedProject.id,
   )
+  const handleProjectKeyDown = (event, project) => {
+    if (event.key === 'Enter' || event.key === ' ') {
+      event.preventDefault()
+      setSelectedProject(project)
+    }
+  }
 
   return (
     <section id="portfolio" className="portfolio section">
@@ -82,6 +88,7 @@ function Portfolio() {
                   type="button"
                   className="project-open-btn"
                   onClick={() => setSelectedProject(primaryFeaturedProject)}
+                  aria-label={`View details for ${primaryFeaturedProject.title}`}
                 >
                   View Project Details
                 </button>
@@ -101,6 +108,10 @@ function Portfolio() {
               <article
                 className="content-card portfolio-card portfolio-grid-card portfolio-clickable reveal-on-scroll"
                 onClick={() => setSelectedProject(item)}
+                onKeyDown={(event) => handleProjectKeyDown(event, item)}
+                tabIndex="0"
+                role="button"
+                aria-label={`Open project details for ${item.title}`}
               >
                 <div className="portfolio-image-wrap">
                   <ProjectImage
@@ -148,6 +159,7 @@ function Portfolio() {
                       event.stopPropagation()
                       setSelectedProject(item)
                     }}
+                    aria-label={`View details for ${item.title}`}
                   >
                     View project
                     <i className="bi bi-arrow-right"></i>
@@ -172,6 +184,10 @@ function Portfolio() {
               <article
                 className="content-card portfolio-card portfolio-grid-card portfolio-clickable reveal-on-scroll"
                 onClick={() => setSelectedProject(item)}
+                onKeyDown={(event) => handleProjectKeyDown(event, item)}
+                tabIndex="0"
+                role="button"
+                aria-label={`Open project context for ${item.title}`}
               >
                 <div className="portfolio-image-wrap">
                   <ProjectImage
@@ -203,6 +219,7 @@ function Portfolio() {
                       event.stopPropagation()
                       setSelectedProject(item)
                     }}
+                    aria-label={`View context for ${item.title}`}
                   >
                     View context
                     <i className="bi bi-arrow-right"></i>

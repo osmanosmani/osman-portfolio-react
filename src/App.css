@@ -86,10 +86,11 @@ h6 {
   margin-bottom: 24px;
 }
 
-.header .logo h1 {
+.header .logo .sitename {
   font-size: 23px;
   font-weight: 300;
   margin: 0;
+  color: var(--heading-color);
 }
 
 .navmenu {
@@ -842,6 +843,12 @@ h6 {
 
 .portfolio-clickable {
   cursor: pointer;
+}
+
+.portfolio-clickable:focus-visible {
+  outline: 2px solid rgba(34, 231, 161, 0.9);
+  outline-offset: 3px;
+  border-color: rgba(34, 231, 161, 0.35);
 }
 
 .project-heading-row {

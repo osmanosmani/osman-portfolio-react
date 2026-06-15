@@ -1,14 +1,18 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import ProjectImage from './ProjectImage'
 
 function ProjectModal({ project, onClose }) {
+  const closeButtonRef = useRef(null)
+
   useEffect(() => {
     if (!project) {
       return undefined
     }
 
     const previousOverflow = document.body.style.overflow
+    const previousActiveElement = document.activeElement
     document.body.style.overflow = 'hidden'
+    closeButtonRef.current?.focus()
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
@@ -21,6 +25,9 @@ function ProjectModal({ project, onClose }) {
     return () => {
       document.body.style.overflow = previousOverflow
       window.removeEventListener('keydown', handleKeyDown)
+      if (previousActiveElement instanceof HTMLElement) {
+        previousActiveElement.focus()
+      }
     }
   }, [project, onClose])
 
@@ -51,6 +58,7 @@ function ProjectModal({ project, onClose }) {
           className="project-modal-close"
           onClick={onClose}
           aria-label="Close project details"
+          ref={closeButtonRef}
         >
           <i className="bi bi-x-lg"></i>
         </button>
@@ -108,14 +116,26 @@ function ProjectModal({ project, onClose }) {
           {hasLinks ? (
             <div className="project-links">
               {project.githubUrl ? (
-                <a href={project.githubUrl} className="project-link" target="_blank" rel="noreferrer">
+                <a
+                  href={project.githubUrl}
+                  className="project-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Open ${project.title} source code on GitHub`}
+                >
                   <i className="bi bi-github"></i>
                   GitHub
                 </a>
               ) : null}
 
               {project.liveUrl && project.isLive ? (
-                <a href={project.liveUrl} className="project-link" target="_blank" rel="noreferrer">
+                <a
+                  href={project.liveUrl}
+                  className="project-link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Visit live project for ${project.title}`}
+                >
                   <i className="bi bi-box-arrow-up-right"></i>
                   Visit Project
                 </a>

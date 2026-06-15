@@ -27,7 +27,13 @@ function Footer() {
 
           <div className="footer-links">
             {footerLinks.map((link) => (
-              <a key={link.label} href={link.href} target="_blank" rel="noreferrer" aria-label={link.label}>
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={link.label}
+              >
                 <i className={link.icon}></i>
               </a>
             ))}
