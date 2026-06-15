@@ -740,7 +740,9 @@ h6 {
 }
 
 .portfolio-image-wrap {
-  height: 240px;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  min-height: 240px;
   margin-bottom: 1.5rem;
   overflow: hidden;
   border-radius: 16px;
@@ -808,7 +810,6 @@ h6 {
 }
 
 .featured-project-image {
-  height: 100%;
   min-height: 320px;
   margin-bottom: 0;
 }
@@ -1040,7 +1041,9 @@ h6 {
 }
 
 .project-modal-image-wrap {
-  height: 320px;
+  aspect-ratio: 16 / 9;
+  min-height: 320px;
+  padding: 12px;
 }
 
 .project-modal-footer {
@@ -1286,7 +1289,7 @@ h6 {
   }
 
   .portfolio-image-wrap {
-    height: 220px;
+    min-height: 220px;
   }
 
   .featured-project-image {
@@ -1307,6 +1310,6 @@ h6 {
   }
 
   .project-modal-image-wrap {
-    height: 200px;
+    min-height: 200px;
   }
 }

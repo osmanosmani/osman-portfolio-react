@@ -1,9 +1,9 @@
-import berishaGroupImage from '../assets/BerishaGroup.jpg'
-import chilloutHouseImage from '../assets/Chillouthouse.jpg'
-import kosovoPoliceImage from '../assets/KosovoPolice.jpg'
-import cinescopeHomepageImage from '../assets/projects/cinescope-homepage.png'
-import lexicampBookingImage from '../assets/projects/lexicamp-booking.png'
-import nackaByggpartnerImage from '../assets/projects/nacka-byggpartner.png'
+import berishaGroupImage from '../assets/projects/BerishaGroup.jpg'
+import chilloutHouseImage from '../assets/projects/Chillouthouse.jpg'
+import kosovoPoliceImage from '../assets/projects/KosovoPolice.jpg'
+import cinescopeHomepageImage from '../assets/projects/cinescope-homepage-optimized.jpg'
+import lexicampBookingImage from '../assets/projects/lexicamp-booking-optimized.jpg'
+import nackaByggpartnerImage from '../assets/projects/nacka-byggpartner-optimized.jpg'
 import nordicWebHubPlaceholderImage from '../assets/projects/nordicwebhub-placeholder.svg'
 
 export const defaultProjectImage = nordicWebHubPlaceholderImage

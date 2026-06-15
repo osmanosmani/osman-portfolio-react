@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import ProjectModal from './ProjectModal'
+import ProjectImage from './ProjectImage'
 import {
-  defaultProjectImage,
-  defaultProjectImageAlt,
   featuredProjects,
   primaryFeaturedProject,
   professionalProjects,
@@ -13,11 +12,6 @@ function Portfolio() {
   const secondaryFeaturedProjects = featuredProjects.filter(
     (project) => project.id !== primaryFeaturedProject.id,
   )
-  const getImageStyle = (project) => ({
-    objectPosition: project.imagePosition ?? 'center center',
-  })
-  const getImageSource = (project) => project.image || defaultProjectImage
-  const getImageAlt = (project) => project.imageAlt || defaultProjectImageAlt
 
   return (
     <section id="portfolio" className="portfolio section">
@@ -36,11 +30,13 @@ function Portfolio() {
           <div className="row g-4 align-items-center">
             <div className="col-lg-6">
               <div className="portfolio-image-wrap featured-project-image">
-                <img
-                  src={getImageSource(primaryFeaturedProject)}
-                  alt={getImageAlt(primaryFeaturedProject)}
+                <ProjectImage
+                  src={primaryFeaturedProject.image}
+                  alt={primaryFeaturedProject.imageAlt}
                   className="portfolio-image"
-                  style={getImageStyle(primaryFeaturedProject)}
+                  position={primaryFeaturedProject.imagePosition}
+                  loading="eager"
+                  fetchPriority="high"
                 />
               </div>
             </div>
@@ -107,11 +103,12 @@ function Portfolio() {
                 onClick={() => setSelectedProject(item)}
               >
                 <div className="portfolio-image-wrap">
-                  <img
-                    src={getImageSource(item)}
-                    alt={getImageAlt(item)}
+                  <ProjectImage
+                    src={item.image}
+                    alt={item.imageAlt}
                     className="portfolio-image"
-                    style={getImageStyle(item)}
+                    position={item.imagePosition}
+                    loading="lazy"
                   />
                 </div>
 
@@ -177,11 +174,12 @@ function Portfolio() {
                 onClick={() => setSelectedProject(item)}
               >
                 <div className="portfolio-image-wrap">
-                  <img
-                    src={getImageSource(item)}
-                    alt={getImageAlt(item)}
+                  <ProjectImage
+                    src={item.image}
+                    alt={item.imageAlt}
                     className="portfolio-image"
-                    style={getImageStyle(item)}
+                    position={item.imagePosition}
+                    loading="lazy"
                   />
                 </div>
 
