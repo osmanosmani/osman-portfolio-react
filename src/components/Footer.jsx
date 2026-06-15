@@ -9,11 +9,6 @@ const footerLinks = [
     href: 'https://github.com/osmanosmani',
     icon: 'bi bi-github',
   },
-  {
-    label: 'Facebook',
-    href: 'https://www.facebook.com/osman.osmani',
-    icon: 'bi bi-facebook',
-  },
 ]
 
 function Footer() {
@@ -24,8 +19,9 @@ function Footer() {
           <div>
             <h3>Osman Osmani</h3>
             <p>
-              Full Stack Developer and Software Engineer focused on secure and
-              performant web systems.
+              Frontend Developer / Web Developer with full-stack and digital
+              platform experience, focused on responsive and business-oriented
+              web solutions.
             </p>
           </div>
 

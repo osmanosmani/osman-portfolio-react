@@ -1,12 +1,23 @@
 import { useState } from 'react'
 import ProjectModal from './ProjectModal'
-import { featuredProjects, primaryFeaturedProject, professionalProjects } from '../data/projects'
+import {
+  defaultProjectImage,
+  defaultProjectImageAlt,
+  featuredProjects,
+  primaryFeaturedProject,
+  professionalProjects,
+} from '../data/projects'
 
 function Portfolio() {
   const [selectedProject, setSelectedProject] = useState(null)
   const secondaryFeaturedProjects = featuredProjects.filter(
     (project) => project.id !== primaryFeaturedProject.id,
   )
+  const getImageStyle = (project) => ({
+    objectPosition: project.imagePosition ?? 'center center',
+  })
+  const getImageSource = (project) => project.image || defaultProjectImage
+  const getImageAlt = (project) => project.imageAlt || defaultProjectImageAlt
 
   return (
     <section id="portfolio" className="portfolio section">
@@ -26,9 +37,10 @@ function Portfolio() {
             <div className="col-lg-6">
               <div className="portfolio-image-wrap featured-project-image">
                 <img
-                  src={primaryFeaturedProject.image}
-                  alt={primaryFeaturedProject.title}
+                  src={getImageSource(primaryFeaturedProject)}
+                  alt={getImageAlt(primaryFeaturedProject)}
                   className="portfolio-image"
+                  style={getImageStyle(primaryFeaturedProject)}
                 />
               </div>
             </div>
@@ -87,7 +99,12 @@ function Portfolio() {
                 onClick={() => setSelectedProject(item)}
               >
                 <div className="portfolio-image-wrap">
-                  <img src={item.image} alt={item.title} className="portfolio-image" />
+                  <img
+                    src={getImageSource(item)}
+                    alt={getImageAlt(item)}
+                    className="portfolio-image"
+                    style={getImageStyle(item)}
+                  />
                 </div>
 
                 <div className="portfolio-meta">
@@ -152,7 +169,12 @@ function Portfolio() {
                 onClick={() => setSelectedProject(item)}
               >
                 <div className="portfolio-image-wrap">
-                  <img src={item.image} alt={item.title} className="portfolio-image" />
+                  <img
+                    src={getImageSource(item)}
+                    alt={getImageAlt(item)}
+                    className="portfolio-image"
+                    style={getImageStyle(item)}
+                  />
                 </div>
 
                 <div className="portfolio-meta">

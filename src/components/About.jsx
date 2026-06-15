@@ -1,28 +1,28 @@
 const quickInfo = [
   { label: 'Experience', value: '10+ years' },
-  { label: 'Focus', value: 'Full Stack Development' },
-  { label: 'Specialties', value: 'Web, SEO, SQL' },
-  { label: 'Languages', value: 'English, Swedish, Albanian' },
+  { label: 'Focus', value: 'Frontend + Full-Stack Delivery' },
+  { label: 'Specialties', value: 'React, .NET, SEO, SQL' },
+  { label: 'Languages', value: 'English C1, Swedish B2, Albanian Native' },
 ]
 
 const expertiseItems = [
   {
-    title: 'Full Stack Development',
+    title: 'Frontend & Web Apps',
     description:
-      'Backend and frontend web systems built for reliability, performance, and maintainability.',
+      'React, TypeScript, JavaScript, HTML, CSS, Tailwind, Bootstrap, and user-focused interface development.',
     icon: 'bi bi-code-slash',
   },
   {
-    title: 'Database & Analytics',
+    title: 'Full-Stack & Data',
     description:
-      'SQL Server, MySQL, advanced querying, and data-driven reporting.',
+      'C#, .NET, Entity Framework, PHP, SQL Server, MySQL, backend integration, and practical system development.',
     icon: 'bi bi-database',
   },
   {
-    title: 'Security & Stability',
+    title: 'CMS, SEO & Platforms',
     description:
-      'Secure web applications, stable hosting, technical maintenance, and continuous improvement.',
-    icon: 'bi bi-shield-check',
+      'WordPress, technical SEO, Google Analytics, hosting, deployment, and ongoing optimisation of business websites.',
+    icon: 'bi bi-graph-up-arrow',
   },
 ]
 
@@ -32,15 +32,12 @@ function About() {
       <div className="container">
         <div className="section-heading reveal-on-scroll">
           <span className="section-kicker">About Me</span>
-          <h2>Full Stack Developer / Software Engineer</h2>
+          <h2>Frontend Developer / Web Developer with Full-Stack and Digital Platform Experience</h2>
           <p>
-            Experienced Web Developer with 10+ years of experience in web
-            development, system development, and database management. I work
-            with JavaScript, React, HTML, CSS, PHP, and SQL to build secure,
-            responsive, and reliable web solutions. My approach combines
-            practical implementation, technical curiosity, and continuous
-            learning, with a focus on clean structure, user-friendly solutions,
-            and meaningful digital results.
+            Frontend Developer / Web Developer with full-stack and digital
+            platform experience. I work with React, TypeScript, JavaScript,
+            C#, .NET, PHP, and SQL to build responsive web applications,
+            secure business platforms, and maintainable digital solutions.
           </p>
         </div>
 
@@ -48,17 +45,25 @@ function About() {
           <div className="col-lg-7">
             <div className="content-card about-story reveal-on-scroll">
               <p>
-                My work is centred on security, performance, and user experience.
-                I combine backend and frontend knowledge with proactive problem
-                solving, strong communication, and continuous learning to support
-                business value and stable digital services.
+                My current focus is on React, TypeScript, .NET, and modern web
+                applications where clean frontend structure, maintainability,
+                and usability matter. I enjoy translating technical
+                requirements into clear, reliable interfaces that support real
+                business needs.
+              </p>
+              <p>
+                My broader background includes public sector platforms,
+                corporate websites, WordPress-based delivery, technical SEO,
+                Google Analytics, hosting, deployment, and long-term website
+                maintenance. This gives me a practical view of digital products
+                beyond coding alone, from implementation and optimisation to
+                support and continuous improvement.
               </p>
               <p className="mb-0">
-                I have also contributed to projects that combined web
-                development, website maintenance, technical support, and
-                communication strategy to strengthen digital presence and public
-                engagement, including work carried out for the Kosovo Police
-                Union.
+                Alongside development work, I have continued strengthening my
+                profile through structured training in React, C#, SQL, SEO,
+                networking, and current AI-related studies at Lexicon in
+                Malmo.
               </p>
             </div>
           </div>
@@ -78,6 +83,10 @@ function About() {
                 <a href="mailto:osmanosmani@gmail.com" className="detail-value">
                   osmanosmani@gmail.com
                 </a>
+              </div>
+              <div className="detail-row">
+                <span className="detail-label">Current Studies</span>
+                <span className="detail-value">Developer with AI, Lexicon (Sep 2026)</span>
               </div>
             </div>
           </div>

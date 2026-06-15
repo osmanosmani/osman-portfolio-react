@@ -11,7 +11,7 @@
   --contrast-color: #1f2937;
   --nav-color: #f3f4f6;
   --nav-hover-color: #22e7a1;
-  --section-gap: 88px;
+  --section-gap: 74px;
 }
 
 * {
@@ -50,6 +50,7 @@ h6 {
 
 .section {
   padding: var(--section-gap) 0;
+  scroll-margin-top: 32px;
 }
 
 .header {
@@ -124,6 +125,10 @@ h6 {
 
 .header .social-links {
   margin-top: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
 }
 
 .header .social-links a {
@@ -132,7 +137,7 @@ h6 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 4px;
+  margin: 0;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.07);
   color: var(--default-color);
@@ -148,7 +153,7 @@ h6 {
   min-height: 100vh;
   display: flex;
   align-items: center;
-  padding: 100px 0 76px;
+  padding: 88px 0 58px;
 }
 
 .hero .container {
@@ -166,13 +171,13 @@ h6 {
   line-height: 1.8;
   color: rgba(243, 244, 246, 0.85);
   max-width: 90%;
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
 }
 
 .hero-actions {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2.2rem;
+  margin-bottom: 1.8rem;
 }
 
 .hero-actions .btn-primary,
@@ -324,7 +329,7 @@ h6 {
 
   .hero {
     min-height: auto;
-    padding-top: 110px;
+    padding-top: 96px;
   }
 
   body.menu-open {
@@ -361,7 +366,7 @@ h6 {
   }
 
   .section {
-    padding: 76px 0;
+    padding: 68px 0;
   }
 }
 
@@ -373,6 +378,10 @@ h6 {
   .hero-actions {
     flex-direction: column;
   }
+
+  .hero {
+    padding: 82px 0 52px;
+  }
 }
 
 /*--------------------------------------------------------------
@@ -381,7 +390,7 @@ h6 {
 
 .section-heading {
   max-width: 760px;
-  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
 }
 
 .section-kicker {
@@ -409,7 +418,7 @@ h6 {
 
 .content-card {
   height: 100%;
-  padding: 28px;
+  padding: 24px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 18px;
   background: rgba(41, 52, 67, 0.75);
@@ -668,9 +677,23 @@ h6 {
   margin-bottom: 2rem;
 }
 
+.resume-background-card {
+  margin-top: 1.25rem;
+}
+
 .certifications-card h4 {
   margin-bottom: 1rem;
   font-size: 1.2rem;
+}
+
+.certifications-card h5 {
+  margin: 1.4rem 0 0.8rem;
+  font-size: 1rem;
+  color: rgba(243, 244, 246, 0.92);
+}
+
+.training-group {
+  margin-top: 1.25rem;
 }
 
 .certification-list {
@@ -682,6 +705,10 @@ h6 {
   margin-bottom: 0.8rem;
   color: rgba(243, 244, 246, 0.8);
   line-height: 1.7;
+}
+
+.certification-list.compact li {
+  margin-bottom: 0.65rem;
 }
 
 .certification-list li:last-child {
@@ -707,6 +734,7 @@ h6 {
   overflow: hidden;
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #141c25;
 }
 
 .portfolio-image {
@@ -743,11 +771,11 @@ h6 {
 .portfolio-card p {
   margin: 0;
   color: rgba(243, 244, 246, 0.8);
-  line-height: 1.8;
+  line-height: 1.7;
 }
 
 .featured-project {
-  margin-bottom: 2rem;
+  margin-bottom: 1.5rem;
 }
 
 .featured-project-image {
@@ -757,7 +785,7 @@ h6 {
 }
 
 .portfolio-secondary-heading {
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.2rem;
 }
 
 .portfolio-secondary-heading h3 {
@@ -774,7 +802,7 @@ h6 {
 }
 
 .portfolio-professional-heading {
-  margin-top: 3rem;
+  margin-top: 2.2rem;
 }
 
 .portfolio-grid-card {
@@ -791,7 +819,7 @@ h6 {
   align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 0.85rem;
+  margin-bottom: 0.7rem;
 }
 
 .project-heading-row h3 {
@@ -799,7 +827,7 @@ h6 {
 }
 
 .portfolio-summary {
-  margin-bottom: 1rem !important;
+  margin-bottom: 0.85rem !important;
   color: rgba(243, 244, 246, 0.92) !important;
 }
 
@@ -838,7 +866,7 @@ h6 {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-  margin: 1.4rem 0;
+  margin: 1.1rem 0;
 }
 
 .tech-badges.compact {
@@ -859,7 +887,7 @@ h6 {
 
 .feature-list {
   padding-left: 1.1rem;
-  margin: 0 0 1.5rem;
+  margin: 0 0 1.15rem;
   color: rgba(243, 244, 246, 0.82);
 }
 
@@ -909,7 +937,7 @@ h6 {
 }
 
 .project-actions {
-  margin-top: 1.5rem;
+  margin-top: 1.1rem;
 }
 
 .project-open-btn,
@@ -927,6 +955,7 @@ h6 {
   padding: 0.95rem 1.25rem;
   background: var(--accent-color);
   color: var(--contrast-color);
+  box-shadow: 0 10px 24px rgba(34, 231, 161, 0.18);
 }
 
 .project-open-btn:hover {
@@ -982,7 +1011,7 @@ h6 {
 }
 
 .project-modal-image-wrap {
-  height: 300px;
+  height: 320px;
 }
 
 .project-modal-footer {
@@ -1180,6 +1209,10 @@ h6 {
     font-size: 1.8rem;
   }
 
+  .section {
+    scroll-margin-top: 24px;
+  }
+
   .portfolio-meta,
   .footer-inner {
     flex-direction: column;
@@ -1197,16 +1230,12 @@ h6 {
 }
 
 @media (max-width: 576px) {
-  .hero {
-    padding: 94px 0 64px;
-  }
-
   .header {
     width: min(300px, 88vw);
   }
 
   .content-card {
-    padding: 22px;
+    padding: 20px;
   }
 
   .timeline {
@@ -1226,7 +1255,7 @@ h6 {
   }
 
   .featured-project-image {
-    min-height: 220px;
+    min-height: 200px;
   }
 
   .project-link {
@@ -1243,6 +1272,6 @@ h6 {
   }
 
   .project-modal-image-wrap {
-    height: 220px;
+    height: 200px;
   }
 }

@@ -2,22 +2,22 @@ const skillGroups = [
   {
     title: 'Frontend Development',
     icon: 'bi bi-window',
-    items: ['JavaScript', 'React', 'Vue', 'HTML5', 'CSS3', 'Bootstrap', 'Tailwind CSS'],
+    items: ['HTML', 'CSS', 'JavaScript', 'TypeScript', 'React', 'Tailwind CSS', 'Bootstrap'],
   },
   {
     title: 'Backend & Data',
     icon: 'bi bi-hdd-stack',
-    items: ['C#/.NET', 'PHP', 'MySQL', 'SQL Server', 'ADO.NET', 'Transact-SQL', 'REST APIs'],
+    items: ['C#', '.NET', 'Entity Framework', 'LINQ', 'PHP', 'SQL Server', 'MySQL', 'REST APIs'],
   },
   {
-    title: 'Digital Delivery',
-    icon: 'bi bi-rocket-takeoff',
-    items: ['SEO', 'Performance Optimisation', 'Hosting', 'Website Maintenance', 'Analytics', 'Content Management'],
+    title: 'CMS / SEO / Digital Marketing',
+    icon: 'bi bi-graph-up-arrow',
+    items: ['WordPress', 'CMS Delivery', 'Technical SEO', 'Google Analytics', 'Content Management', 'Performance Optimisation'],
   },
   {
-    title: 'Operations & Support',
-    icon: 'bi bi-shield-check',
-    items: ['System Security', 'Technical Support', 'Testing', 'Training', 'Network Administration', 'IT Support'],
+    title: 'Tools, Cloud & AI',
+    icon: 'bi bi-cpu',
+    items: ['Git', 'Azure DevOps', 'Azure AI Services', 'Chatbots', 'Agile / Scrum', 'Testing Methodology', 'Technical Documentation', 'Hosting & Deployment'],
   },
 ]
 
@@ -27,10 +27,11 @@ function Skills() {
       <div className="container">
         <div className="section-heading reveal-on-scroll">
           <span className="section-kicker">Skills</span>
-          <h2>Practical tools and technologies used to build stable digital solutions.</h2>
+          <h2>Practical tools and technologies used to build responsive, reliable digital solutions.</h2>
           <p>
-            A practical mix of web development, databases, SEO, and digital delivery
-            built through more than ten years of hands-on experience.
+            Frontend development is the main focus, supported by backend and
+            database knowledge, CMS and SEO experience, and practical tooling
+            used in real web delivery.
           </p>
         </div>
 

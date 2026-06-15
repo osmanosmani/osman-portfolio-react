@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { defaultProjectImage, defaultProjectImageAlt } from '../data/projects'
 
 function ProjectModal({ project, onClose }) {
   useEffect(() => {
@@ -55,7 +56,12 @@ function ProjectModal({ project, onClose }) {
         </button>
 
         <div className="portfolio-image-wrap project-modal-image-wrap">
-          <img src={project.image} alt={project.title} className="portfolio-image" />
+          <img
+            src={project.image || defaultProjectImage}
+            alt={project.imageAlt || defaultProjectImageAlt}
+            className="portfolio-image"
+            style={{ objectPosition: project.imagePosition ?? 'center center' }}
+          />
         </div>
 
         <div className="portfolio-meta">

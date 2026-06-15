@@ -10,11 +10,12 @@ function Hero() {
               <h1>Osman Osmani</h1>
 
               <p className="hero-description">
-                I’m a frontend-focused Web Developer with 10+ years of
-                experience building responsive, secure, and reliable digital
-                solutions. My background includes web development, databases,
-                and digital systems, with a strong focus on usability,
-                performance, and continuous improvement.
+                Frontend Developer / Web Developer with 10+ years of experience
+                building responsive web applications, digital platforms, and
+                business-focused solutions. My work combines modern frontend
+                development with full-stack understanding, database experience,
+                and long-term web delivery focused on usability, performance,
+                and business value.
               </p>
 
               <div className="hero-actions">
@@ -33,7 +34,7 @@ function Hero() {
                 </div>
 
                 <div className="stat-item">
-                  <span className="stat-number">6</span>
+                  <span className="stat-number">3</span>
                   <span className="stat-label">Key Roles</span>
                 </div>
 
@@ -56,17 +57,17 @@ function Hero() {
 
                 <div className="floating-card card-1">
                   <i className="bi bi-code-slash"></i>
-                  <span>Web Development</span>
+                  <span>Frontend Development</span>
                 </div>
 
                 <div className="floating-card card-2">
-                  <i className="bi bi-database"></i>
-                  <span>SQL & Data Specialist</span>
+                  <i className="bi bi-hdd-stack"></i>
+                  <span>Full-Stack & Databases</span>
                 </div>
 
                 <div className="floating-card card-3">
-                  <i className="bi bi-gear"></i>
-                  <span>Software Engineer</span>
+                  <i className="bi bi-graph-up-arrow"></i>
+                  <span>SEO & Digital Platforms</span>
                 </div>
               </div>
             </div>

@@ -164,9 +164,6 @@ function Header() {
           <a href="https://github.com/osmanosmani" className="github" target="_blank" rel="noreferrer">
             <i className="bi bi-github"></i>
           </a>
-          <a href="https://www.facebook.com/osman.osmani" className="facebook" target="_blank" rel="noreferrer">
-            <i className="bi bi-facebook"></i>
-          </a>
           <a href="mailto:osmanosmani@gmail.com" className="envelope">
             <i className="bi bi-envelope"></i>
           </a>
