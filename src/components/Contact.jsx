@@ -129,8 +129,12 @@ function Contact() {
             <div className="content-card contact-intro-card reveal-on-scroll">
               <h3>Let&apos;s Connect</h3>
               <p>
-                Available for freelance work, consulting, and software
-                development opportunities.
+                Available for freelance work, consulting, and technical
+                collaboration.
+              </p>
+              <p className="contact-opportunity-line">
+                I am open to frontend, web developer, full-stack junior,
+                internship, and technical project opportunities.
               </p>
 
               <div className="contact-list">

@@ -20,8 +20,9 @@ export const projects = [
     year: '2025-Present',
     title: 'NordicWebHub',
     status: 'In progress',
+    highlightLabel: 'Main Project',
     shortDescription:
-      'Full-stack web services management platform built as a client portal for small and medium-sized businesses, combining customer operations, support workflows, service management, and dashboard-driven business logic.',
+      'Flagship full-stack web services management platform built as a client portal for small and medium-sized businesses, combining customer operations, support workflows, service management, and dashboard-driven business logic.',
     detail:
       'NordicWebHub is the main full-stack project in the portfolio and is designed as a structured client portal for digital service delivery. It combines secure authentication, role-based access, company-level data isolation, service packages, project requests, support tickets, maintenance logs, SEO reporting, service orders, payment status demo flows, and an AI Service Assistant. The project highlights practical backend architecture, API design, database structure, responsive frontend work, and real-world SaaS thinking.',
     image: defaultProjectImage,

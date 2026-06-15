@@ -69,6 +69,12 @@ function ProjectModal({ project, onClose }) {
           <span className="portfolio-year">{project.year}</span>
         </div>
 
+        {project.highlightLabel ? (
+          <div className="project-highlight-row">
+            <span className="project-highlight-badge">{project.highlightLabel}</span>
+          </div>
+        ) : null}
+
         <div className="project-heading-row">
           <h3 id="project-modal-title">{project.title}</h3>
           <span className={`status-badge ${statusClass}`}>{project.status}</span>

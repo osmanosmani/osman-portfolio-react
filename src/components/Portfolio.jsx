@@ -51,6 +51,14 @@ function Portfolio() {
                 <span className="portfolio-year">{primaryFeaturedProject.year}</span>
               </div>
 
+              {primaryFeaturedProject.highlightLabel ? (
+                <div className="project-highlight-row">
+                  <span className="project-highlight-badge">
+                    {primaryFeaturedProject.highlightLabel}
+                  </span>
+                </div>
+              ) : null}
+
               <div className="project-heading-row">
                 <h3>{primaryFeaturedProject.title}</h3>
                 <span className="status-badge in-progress">{primaryFeaturedProject.status}</span>

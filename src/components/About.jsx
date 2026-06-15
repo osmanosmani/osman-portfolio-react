@@ -32,7 +32,7 @@ function About() {
       <div className="container">
         <div className="section-heading reveal-on-scroll">
           <span className="section-kicker">About Me</span>
-          <h2>Frontend Developer / Web Developer with Full-Stack and Digital Platform Experience</h2>
+          <h2>Frontend Developer / Web Developer</h2>
           <p>
             Frontend Developer / Web Developer with full-stack and digital
             platform experience. I work with React, TypeScript, JavaScript,
@@ -62,8 +62,8 @@ function About() {
               <p className="mb-0">
                 Alongside development work, I have continued strengthening my
                 profile through structured training in React, C#, SQL, SEO,
-                networking, and current AI-related studies at Lexicon in
-                Malmo.
+                WordPress, cloud-related tooling, and current AI-focused
+                studies at Lexicon in Malmo.
               </p>
             </div>
           </div>

@@ -8,9 +8,10 @@ function Hero() {
           <div className="col-lg-6 order-2 order-lg-1">
             <div className="hero-content reveal-on-scroll">
               <h1>Osman Osmani</h1>
+              <p className="hero-role">Frontend Developer / Web Developer</p>
 
               <p className="hero-description">
-                Frontend Developer / Web Developer with 10+ years of experience
+                Frontend-focused Web Developer with 10+ years of experience
                 building responsive web applications, digital platforms, and
                 business-focused solutions. My work combines modern frontend
                 development with full-stack understanding, database experience,
