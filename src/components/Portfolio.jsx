@@ -6,6 +6,7 @@ import {
   primaryFeaturedProject,
   professionalProjects,
 } from '../data/projects'
+import { getProjectStatusClass } from '../utils/projectStatus'
 
 function Portfolio() {
   const [selectedProject, setSelectedProject] = useState(null)
@@ -63,7 +64,11 @@ function Portfolio() {
 
               <div className="project-heading-row">
                 <h3>{primaryFeaturedProject.title}</h3>
-                <span className="status-badge in-progress">{primaryFeaturedProject.status}</span>
+                <span
+                  className={`status-badge ${getProjectStatusClass(primaryFeaturedProject.status)}`}
+                >
+                  {primaryFeaturedProject.status}
+                </span>
               </div>
 
               <p className="portfolio-summary">{primaryFeaturedProject.shortDescription}</p>
@@ -84,14 +89,42 @@ function Portfolio() {
               </ul>
 
               <div className="project-actions">
-                <button
-                  type="button"
-                  className="project-open-btn"
-                  onClick={() => setSelectedProject(primaryFeaturedProject)}
-                  aria-label={`View details for ${primaryFeaturedProject.title}`}
-                >
-                  View Project Details
-                </button>
+                {primaryFeaturedProject.liveUrl && primaryFeaturedProject.isLive ? (
+                  <a
+                    href={primaryFeaturedProject.liveUrl}
+                    className="project-open-btn"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View live demo for ${primaryFeaturedProject.title}`}
+                  >
+                    <i className="bi bi-box-arrow-up-right"></i>
+                    View Live Demo
+                  </a>
+                ) : null}
+
+                {primaryFeaturedProject.githubUrl ? (
+                  <a
+                    href={primaryFeaturedProject.githubUrl}
+                    className="project-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`View GitHub repository for ${primaryFeaturedProject.title}`}
+                  >
+                    <i className="bi bi-github"></i>
+                    View GitHub
+                  </a>
+                ) : null}
+
+                {primaryFeaturedProject.caseStudyUrl ? (
+                  <a
+                    href={primaryFeaturedProject.caseStudyUrl}
+                    className="project-link"
+                    aria-label={`Open case study page for ${primaryFeaturedProject.title}`}
+                  >
+                    <i className="bi bi-layout-text-window-reverse"></i>
+                    Open Case Study
+                  </a>
+                ) : null}
               </div>
             </div>
           </div>
@@ -131,9 +164,7 @@ function Portfolio() {
                 <div className="project-heading-row">
                   <h3>{item.title}</h3>
                   <span
-                    className={`status-badge ${
-                      item.status === 'Completed' ? 'completed' : 'in-progress'
-                    }`}
+                    className={`status-badge ${getProjectStatusClass(item.status)}`}
                   >
                     {item.status}
                   </span>

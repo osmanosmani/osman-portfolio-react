@@ -10,12 +10,17 @@ const navItems = [
   { href: '#contact', label: 'Contact', icon: 'bi bi-envelope' },
 ]
 
-function Header() {
+function Header({ isProjectPage = false }) {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [activeSection, setActiveSection] = useState('#hero')
+  const [activeSection, setActiveSection] = useState(isProjectPage ? '#portfolio' : '#hero')
   const [pendingSection, setPendingSection] = useState('')
 
   const scrollToSection = (href) => {
+    if (isProjectPage) {
+      window.location.assign(`/${href}`)
+      return
+    }
+
     const target = document.querySelector(href)
 
     if (!target) {
@@ -34,6 +39,11 @@ function Header() {
   }
 
   useEffect(() => {
+    if (isProjectPage) {
+      setActiveSection('#portfolio')
+      return undefined
+    }
+
     const sections = navItems
       .map((item) => document.getElementById(item.href.replace('#', '')))
       .filter(Boolean)
@@ -54,7 +64,7 @@ function Header() {
     sections.forEach((section) => observer.observe(section))
 
     return () => observer.disconnect()
-  }, [])
+  }, [isProjectPage])
 
   useEffect(() => {
     document.body.classList.toggle('menu-open', isMenuOpen)
@@ -89,6 +99,12 @@ function Header() {
 
   const handleNavClick = (event, href) => {
     event.preventDefault()
+
+    if (isProjectPage) {
+      window.location.assign(`/${href}`)
+      return
+    }
+
     setActiveSection(href)
     setPendingSection(href)
 
@@ -134,7 +150,7 @@ function Header() {
           </div>
 
           <a
-            href="#hero"
+            href={isProjectPage ? '/#hero' : '#hero'}
             className="logo d-flex align-items-center justify-content-center"
             onClick={(event) => handleNavClick(event, '#hero')}
             aria-label="Go to Home section"
@@ -148,7 +164,7 @@ function Header() {
             {navItems.map((item) => (
               <li key={item.href}>
                 <a
-                  href={item.href}
+                  href={isProjectPage ? `/${item.href}` : item.href}
                   className={activeSection === item.href ? 'active' : ''}
                   aria-current={activeSection === item.href ? 'page' : undefined}
                   onClick={(event) => handleNavClick(event, item.href)}

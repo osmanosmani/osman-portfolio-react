@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import ProjectImage from './ProjectImage'
+import { getProjectStatusClass } from '../utils/projectStatus'
 
 function ProjectModal({ project, onClose }) {
   const closeButtonRef = useRef(null)
@@ -35,14 +36,9 @@ function ProjectModal({ project, onClose }) {
     return null
   }
 
-  const hasLinks = project.githubUrl || (project.liveUrl && project.isLive)
+  const hasLinks = project.caseStudyUrl || project.githubUrl || (project.liveUrl && project.isLive)
   const liveMessage = !project.isLive && project.liveLabel ? project.liveLabel : null
-  const statusClass =
-    project.status === 'Completed'
-      ? 'completed'
-      : project.status === 'Professional Work'
-        ? 'professional'
-        : 'in-progress'
+  const statusClass = getProjectStatusClass(project.status)
 
   return (
     <div className="project-modal-backdrop" onClick={onClose}>
@@ -115,6 +111,17 @@ function ProjectModal({ project, onClose }) {
         <div className="project-modal-footer">
           {hasLinks ? (
             <div className="project-links">
+              {project.caseStudyUrl ? (
+                <a
+                  href={project.caseStudyUrl}
+                  className="project-link"
+                  aria-label={`Open case study page for ${project.title}`}
+                >
+                  <i className="bi bi-layout-text-window-reverse"></i>
+                  Case Study
+                </a>
+              ) : null}
+
               {project.githubUrl ? (
                 <a
                   href={project.githubUrl}
@@ -137,7 +144,7 @@ function ProjectModal({ project, onClose }) {
                   aria-label={`Visit live project for ${project.title}`}
                 >
                   <i className="bi bi-box-arrow-up-right"></i>
-                  Visit Project
+                  View Live Demo
                 </a>
               ) : null}
 
@@ -150,6 +157,17 @@ function ProjectModal({ project, onClose }) {
             </div>
           ) : liveMessage ? (
             <div className="project-links">
+              {project.caseStudyUrl ? (
+                <a
+                  href={project.caseStudyUrl}
+                  className="project-link"
+                  aria-label={`Open case study page for ${project.title}`}
+                >
+                  <i className="bi bi-layout-text-window-reverse"></i>
+                  Case Study
+                </a>
+              ) : null}
+
               <span className="project-link disabled status-note">
                 <i className="bi bi-hourglass-split"></i>
                 {liveMessage}

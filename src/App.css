@@ -975,6 +975,9 @@ h6 {
 
 .project-actions {
   margin-top: 1.1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
 }
 
 .project-open-btn,
@@ -1055,6 +1058,105 @@ h6 {
 
 .project-modal-footer {
   margin-top: 1.25rem;
+}
+
+/*--------------------------------------------------------------
+# Project Page
+--------------------------------------------------------------*/
+
+.project-page {
+  min-height: 100vh;
+}
+
+.project-page-header {
+  margin-bottom: 1.25rem;
+}
+
+.project-breadcrumb {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  color: rgba(243, 244, 246, 0.82);
+  font-weight: 500;
+}
+
+.project-breadcrumb:hover {
+  color: var(--accent-color);
+}
+
+.project-page-card h1 {
+  margin: 0 0 0.4rem;
+  font-size: 2.6rem;
+  font-weight: 300;
+}
+
+.project-page-title-row {
+  align-items: flex-end;
+}
+
+.project-page-summary {
+  max-width: 860px;
+}
+
+.project-note-box {
+  margin: 1.5rem 0;
+  padding: 1.1rem 1.2rem;
+  border-radius: 16px;
+  background: rgba(34, 231, 161, 0.08);
+  border: 1px solid rgba(34, 231, 161, 0.14);
+}
+
+.project-note-box h2,
+.project-page-block h2 {
+  margin-bottom: 0.85rem;
+  font-size: 1.15rem;
+}
+
+.project-note-box p,
+.project-page-block p {
+  margin: 0;
+  color: rgba(243, 244, 246, 0.82);
+  line-height: 1.78;
+}
+
+.project-page-block p + p {
+  margin-top: 1rem;
+}
+
+.project-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 1.7rem 0;
+}
+
+.project-gallery-item {
+  margin: 0;
+}
+
+.project-gallery-image-wrap {
+  min-height: 280px;
+  margin-bottom: 0.8rem;
+}
+
+.project-gallery-item figcaption {
+  color: rgba(243, 244, 246, 0.68);
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.project-page-sections {
+  margin-top: 0.35rem;
+}
+
+.project-page-block + .project-page-block {
+  margin-top: 1.5rem;
+}
+
+.project-page-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
 }
 
 /*--------------------------------------------------------------
@@ -1272,6 +1374,14 @@ h6 {
   .project-modal-image-wrap {
     height: 240px;
   }
+
+  .project-gallery-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-page-card h1 {
+    font-size: 2.1rem;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1318,5 +1428,13 @@ h6 {
 
   .project-modal-image-wrap {
     min-height: 200px;
+  }
+
+  .project-page-card h1 {
+    font-size: 1.85rem;
+  }
+
+  .project-gallery-image-wrap {
+    min-height: 220px;
   }
 }
