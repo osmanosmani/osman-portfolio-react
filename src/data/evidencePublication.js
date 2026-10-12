@@ -4,8 +4,10 @@
 export const evidencePublicationReview = {
   'berisha-group': {
     localIntegrationApproved: true,
+    selectedPdfPublicationApproved: true,
+    approvedPdfPath: '/reports/berisha-group-digital-marketing.pdf',
     originalMaterialApproved: false,
-    pendingReview: 'Local PDF integration and testing approved. Separate approval is required before public deployment.',
+    pendingReview: 'Selected six-page PDF approved for public use and GitHub transfer. Other original reports and screenshots remain unapproved; website deployment requires separate approval.',
   },
   chillouthouse: {
     originalMaterialApproved: false,

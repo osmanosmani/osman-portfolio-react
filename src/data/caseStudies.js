@@ -74,10 +74,10 @@ export const digitalMarketingCaseStudies = [
       format: 'PDF',
       pages: 6,
       path: '/reports/berisha-group-digital-marketing.pdf',
-      // Reviewed PDF supplied by the user; enabled for local integration only.
+      // Selected six-page PDF supplied and explicitly approved for public use.
       available: true,
       approvedForLocalIntegration: true,
-      approvedForPublication: false,
+      approvedForPublication: true,
       highlightLabels: ['Facebook follower growth', 'Paid promotional campaigns', 'YouTube videos'],
       attribution: 'Historical figures from Osman Osmani’s 2018–2019 work report; activity metrics, not sales or sole individual attribution.',
     },
