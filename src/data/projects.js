@@ -16,21 +16,21 @@ export const projects = [
   {
     id: 1,
     slug: 'nordicwebhub',
-    title: 'NordicWebHub',
+    title: 'NordicWebHub – Full-Stack Web Services Management Platform',
     type: 'featured',
     category: 'Full-Stack B2B SaaS Client Portal',
     priority: 1,
     isFeatured: true,
     year: '2026',
-    status: 'Live Demo',
+    status: 'Ongoing project',
     highlightLabel: 'Featured Full-Stack Project',
     caseStudyUrl: '/projects/nordicwebhub',
     shortDescription:
-      'A deployed full-stack client portal for digital service delivery, built with React, TypeScript, ASP.NET Core Web API, SQL Server, Identity authentication, role-based access, and customer data isolation.',
+      'An ongoing portfolio application for managing digital services for small and medium-sized businesses, using React, ASP.NET Core Web API, Entity Framework Core and SQL Server.',
     detail:
-      'NordicWebHub is a full-stack B2B SaaS-style platform that helps agencies and digital service teams manage service packages, customer companies, project requests, projects, support tickets, service orders, maintenance logs, SEO reports, hosting status, and AI-assisted service recommendations from one secure portal. The application includes separate Admin and Customer portals, HttpOnly cookie authentication, CSRF protection, role-based authorization, and a one Customer equals one Company data isolation model.',
+      'NordicWebHub is an ongoing full-stack portfolio application that helps agencies and digital service teams manage service packages, customer companies, project requests, projects, support tickets, service orders, maintenance logs, SEO reports, hosting status, and AI-assisted service recommendations from one secure portal. The application includes separate Admin and Customer portals, HttpOnly cookie authentication, CSRF protection, role-based authorization, and a one Customer equals one Company data isolation model.',
     description:
-      'NordicWebHub is a full-stack B2B SaaS-style platform that helps agencies and digital service teams manage service packages, customer companies, project requests, projects, support tickets, service orders, maintenance logs, SEO reports, hosting status, and AI-assisted service recommendations from one secure portal. The application includes separate Admin and Customer portals, HttpOnly cookie authentication, CSRF protection, role-based authorization, and a one Customer equals one Company data isolation model.',
+      'NordicWebHub is an ongoing full-stack portfolio application that helps agencies and digital service teams manage service packages, customer companies, project requests, projects, support tickets, service orders, maintenance logs, SEO reports, hosting status, and AI-assisted service recommendations from one secure portal. The application includes separate Admin and Customer portals, HttpOnly cookie authentication, CSRF protection, role-based authorization, and a one Customer equals one Company data isolation model.',
     image: nordicWebHubHomeImage,
     imageAlt: 'NordicWebHub public landing page showing the client portal product interface',
     imagePosition: 'center top',
@@ -78,7 +78,7 @@ export const projects = [
       'Rule-based AI Service Assistant and bilingual EN/SV public UI foundation',
     ],
     caseStudyOverview: [
-      'NordicWebHub is a deployed full-stack B2B SaaS-style client portal for digital service delivery. It brings service packages, customer companies, project requests, support, maintenance, SEO reporting, and operational workflows into one secure workspace.',
+      'NordicWebHub is an ongoing portfolio application with a deployed demonstration. It brings service packages, customer companies, project requests, support, maintenance, SEO reporting and operational workflows into one workspace for small and medium-sized businesses.',
       'The project is structured as a decoupled React and ASP.NET Core Web API application with SQL Server, Identity-based authentication, role-based authorization, customer data isolation, and live deployment across Vercel, Azure App Service, and Azure SQL.',
     ],
     caseStudyHighlights: [
@@ -97,7 +97,7 @@ export const projects = [
       },
     ],
     hostingNote:
-      'NordicWebHub is deployed as a real split-stack application: the React frontend runs on Vercel, while the ASP.NET Core Web API and SQL database run on Azure infrastructure. The portfolio presents the project as a flagship case study while the application itself remains independently deployed.',
+      'The existing project demo uses a split-stack setup: React on Vercel and ASP.NET Core Web API with SQL on Azure. This is ongoing portfolio/project development, not a claim of commercial production delivery or advanced Azure engineering experience.',
     githubUrl: 'https://github.com/osmanosmani/NordicWebHub',
     liveUrl: 'https://nordic-web-hub.vercel.app/',
     isLive: true,
@@ -108,14 +108,14 @@ export const projects = [
     slug: 'cinescope',
     title: 'CineScope – Modern Movie Discovery Platform',
     type: 'featured',
-    category: 'Full-Stack ASP.NET Core MVC Application',
+    category: 'Practical Full-Stack .NET Project',
     priority: 2,
     isFeatured: true,
     year: '2026',
     status: 'Portfolio Ready',
     caseStudyUrl: '/projects/cinescope',
     shortDescription:
-      'ASP.NET Core MVC movie platform with SQL Server, Identity, role-based access, reviews, favorites, TMDB import, and admin analytics.',
+      'Practical ASP.NET Core MVC project demonstrating SQL Server, Identity authentication, role-based authorization, reviews, favorites and admin functionality. Presented as project experience.',
     detail:
       'CineScope is a full-stack movie discovery and management platform built with ASP.NET Core MVC. It demonstrates backend development, database design, authentication, MVC architecture, and structured documentation for portfolio and employer review.',
     description:
@@ -156,7 +156,7 @@ export const projects = [
       'Simple real-time notifications with SignalR',
     ],
     caseStudyOverview: [
-      'CineScope is structured as a full-stack ASP.NET Core MVC application with a clear separation between public browsing, member functionality, and admin management.',
+      'CineScope is a practical full-stack portfolio project, demonstrating ASP.NET Core MVC, database-driven CRUD, Entity Framework migrations and a clear separation between public browsing, member functionality and admin management. It is project experience, not commercial production experience.',
       'The project combines database-backed movie management, authentication, role-based authorization, and external API integration in a way that is relevant for backend-focused employer review.',
     ],
     caseStudyHighlights: [
@@ -190,10 +190,10 @@ export const projects = [
     id: 3,
     slug: 'munamii-cakery',
     title: 'Munamii Cakery – Responsive React Bakery Website',
-    type: 'featured',
+    type: 'learning',
     category: 'Frontend React Project',
     priority: 3,
-    isFeatured: true,
+    isFeatured: false,
     year: '2026',
     status: 'Completed',
     caseStudyUrl: '/projects/munamii-cakery',
@@ -235,13 +235,13 @@ export const projects = [
     title: 'Nacka Byggpartner – Modern Construction Company Website',
     type: 'featured',
     category: 'Frontend Business Website',
-    priority: 4,
+    priority: 3,
     isFeatured: true,
     year: '2026',
     status: 'Completed',
     caseStudyUrl: '/projects/nacka-byggpartner',
     shortDescription:
-      'Responsive business website for a Swedish construction company, focused on service presentation, clean structure, and mobile-friendly frontend delivery.',
+      'Client-oriented React website for a Swedish construction company, combining real business requirements, reusable components, responsive design and clear service presentation.',
     detail:
       'Nacka Byggpartner was built to present company services clearly and support a professional digital presence. The project demonstrates React, Vite, Tailwind CSS, responsive layout work, and business-oriented frontend implementation.',
     description:
@@ -267,10 +267,10 @@ export const projects = [
     id: 5,
     slug: 'lexicamp-booking',
     title: 'LexiCamp Booking – Campsite Reservation Platform',
-    type: 'featured',
+    type: 'learning',
     category: 'Booking Platform Project',
     priority: 5,
-    isFeatured: true,
+    isFeatured: false,
     year: '2026',
     status: 'Portfolio Ready',
     caseStudyUrl: '/projects/lexicamp-booking',
@@ -392,6 +392,10 @@ export const professionalProjects = projects
   .sort((a, b) => a.priority - b.priority)
 
 export const primaryFeaturedProject = featuredProjects[0]
+
+export const learningProjects = projects
+  .filter((project) => project.type === 'learning')
+  .sort((a, b) => a.priority - b.priority)
 
 export const findProjectByPath = (pathname) => {
   const normalizedPath = pathname !== '/' ? pathname.replace(/\/+$/, '') : pathname

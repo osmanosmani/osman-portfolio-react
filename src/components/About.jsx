@@ -1,8 +1,10 @@
+import { professionalProfile } from '../data/profile'
+
 const quickInfo = [
   { label: 'Experience', value: '10+ years' },
   { label: 'Focus', value: 'Frontend + Full-Stack Delivery' },
-  { label: 'Specialties', value: 'React, .NET, SEO, SQL' },
-  { label: 'Languages', value: 'English C1, Swedish B2, Albanian Native' },
+  { label: 'Professional strengths', value: 'Web delivery, PHP, WordPress, SEO' },
+  { label: 'Languages', value: 'Albanian: Native / bilingual. English & Swedish: Professional working proficiency.' },
 ]
 
 const expertiseItems = [
@@ -15,7 +17,7 @@ const expertiseItems = [
   {
     title: 'Full-Stack & Data',
     description:
-      'C#, .NET, Entity Framework, PHP, SQL Server, MySQL, backend integration, and practical system development.',
+      'Professional PHP and database experience, complemented by practical C#, ASP.NET Core, Entity Framework and SQL projects through Lexicon and portfolio development.',
     icon: 'bi bi-database',
   },
   {
@@ -32,12 +34,12 @@ function About() {
       <div className="container">
         <div className="section-heading reveal-on-scroll">
           <span className="section-kicker">About Me</span>
-          <h2>Frontend Developer / Web Developer</h2>
+          <h2>Experienced in web delivery. Expanding into modern full-stack development.</h2>
           <p>
-            Frontend Developer / Web Developer with full-stack and digital
-            platform experience. I work with React, TypeScript, JavaScript,
-            C#, .NET, PHP, and SQL to build responsive web applications,
-            secure business platforms, and maintainable digital solutions.
+            I bring more than 10 years of experience in web development, IT and
+            digital solutions, backed by an MSc in Computer Science and Engineering
+            and a BSc in Computer Science. My strength is understanding the complete
+            web solution from both the technical and business side.
           </p>
         </div>
 
@@ -45,25 +47,22 @@ function About() {
           <div className="col-lg-7">
             <div className="content-card about-story reveal-on-scroll">
               <p>
-                My current focus is on React, TypeScript, .NET, and modern web
-                applications where clean frontend structure, maintainability,
-                and usability matter. I enjoy translating technical
-                requirements into clear, reliable interfaces that support real
-                business needs.
+                I have worked with real clients and institutional teams across
+                requirements, planning, development, deployment, hosting and
+                maintenance. Performance, security, SEO, analytics and clear
+                stakeholder communication are part of that work.
               </p>
               <p>
-                My broader background includes public sector platforms,
-                corporate websites, WordPress-based delivery, technical SEO,
-                Google Analytics, hosting, deployment, and long-term website
-                maintenance. This gives me a practical view of digital products
-                beyond coding alone, from implementation and optimisation to
-                support and continuous improvement.
+                I am modernising my stack with React, TypeScript, C#/.NET,
+                ASP.NET Core, SQL and Azure. My modern .NET experience comes
+                from education and practical portfolio projects, while my
+                long-term professional background is in web and digital delivery.
               </p>
               <p className="mb-0">
-                Alongside development work, I have continued strengthening my
-                profile through structured training in React, C#, SQL, SEO,
-                WordPress, cloud-related tooling, and current AI-focused
-                studies at Lexicon in Malmo.
+                Through Lexicon and my current APL at Qualipro in Malmö, I am
+                gaining further team experience in Sweden: frontend development,
+                Git/GitHub collaboration, QA, documentation and stakeholder feedback.
+                AI-assisted development supports my analysis and delivery workflow.
               </p>
             </div>
           </div>
@@ -72,7 +71,7 @@ function About() {
             <div className="content-card about-details-card reveal-on-scroll">
               <div className="detail-row">
                 <span className="detail-label">Location</span>
-                <span className="detail-value">Helsingborg, Sweden</span>
+                <span className="detail-value">{professionalProfile.location}</span>
               </div>
               <div className="detail-row">
                 <span className="detail-label">Status</span>
@@ -86,7 +85,11 @@ function About() {
               </div>
               <div className="detail-row">
                 <span className="detail-label">Current Studies</span>
-                <span className="detail-value">Developer with AI, Lexicon (Sep 2026)</span>
+                <span className="detail-value">Programmer / Developer with AI, Lexicon · 2026, including APL through December</span>
+              </div>
+              <div className="detail-row">
+                <span className="detail-label">Current APL</span>
+                <span className="detail-value">Qualipro, Malmö · Ends 3 December 2026</span>
               </div>
             </div>
           </div>

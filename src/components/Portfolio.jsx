@@ -5,6 +5,7 @@ import {
   featuredProjects,
   primaryFeaturedProject,
   professionalProjects,
+  learningProjects,
 } from '../data/projects'
 import { getProjectStatusClass } from '../utils/projectStatus'
 
@@ -132,7 +133,7 @@ function Portfolio() {
 
         <div className="portfolio-secondary-heading reveal-on-scroll">
           <h3>Featured Projects</h3>
-          <p>Modern portfolio projects that show current frontend and full-stack capabilities.</p>
+          <p>Practical .NET project experience and real client-oriented React delivery, alongside the ongoing NordicWebHub application.</p>
         </div>
 
         <div className="row g-4">
@@ -201,12 +202,33 @@ function Portfolio() {
           ))}
         </div>
 
+        <div className="portfolio-secondary-heading reveal-on-scroll">
+          <h3>Additional Learning Projects</h3>
+          <p>Further React practice and collaborative project work. Full case studies remain available.</p>
+        </div>
+        <div className="row g-3">
+          {learningProjects.map((project) => (
+            <div className="col-md-6" key={project.slug}>
+              <article className="content-card learning-project-card h-100 reveal-on-scroll">
+                <span className="section-kicker">Learning / project experience</span>
+                <h4>{project.title}</h4>
+                <p>{project.shortDescription}</p>
+                <a className="project-link" href={project.caseStudyUrl}>View case study <i className="bi bi-arrow-right" aria-hidden="true"></i></a>
+              </article>
+            </div>
+          ))}
+        </div>
+
         <div className="portfolio-secondary-heading portfolio-professional-heading reveal-on-scroll">
           <h3>Selected Professional Work</h3>
           <p>
             Selected website and digital platform work delivered through previous professional roles,
             including public sector, corporate, and freelance environments.
           </p>
+          <a href="/case-studies/digital-marketing" className="project-link">
+            <i className="bi bi-arrow-right" aria-hidden="true"></i>
+            Digital communications & marketing context
+          </a>
         </div>
 
         <div className="row g-4">

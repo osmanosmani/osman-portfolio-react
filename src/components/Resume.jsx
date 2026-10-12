@@ -1,5 +1,12 @@
 const experienceItems = [
   {
+    year: 'September 2026 – December 2026',
+    title: 'Web / Full-Stack Developer Intern (APL)',
+    location: 'Qualipro, Malmö, Sweden',
+    description: 'Current APL focused on web and frontend development, responsive interfaces, UI/UX improvement and structured QA. Collaborating with a team and stakeholders through Git/GitHub workflows, technical documentation and feedback. APL ends 3 December 2026.',
+    tags: ['Web & Frontend', 'Git / GitHub', 'Responsive UI', 'QA & Documentation', 'Team Collaboration'],
+  },
+  {
     year: '2020 - Present',
     title: 'Freelance Web Specialist',
     location: 'Helsingborg, Sweden',
@@ -45,9 +52,9 @@ const additionalBackground = [
 const educationItems = [
   {
     year: '2026',
-    title: 'Lexicon Programmer, Developer with AI',
-    institution: 'Lexicon, Malmo',
-    details: 'Expected Graduation: September 2026.',
+    title: 'Programmer / Developer with AI',
+    institution: 'Lexicon, Malmö',
+    details: 'Current program including APL through December 2026. Practical training in C#/.NET, Entity Framework, LINQ, SQL, JavaScript, TypeScript, React, Tailwind, Azure/cloud, CI/CD, testing, Agile/Scrum, documentation and AI-assisted development.',
   },
   {
     year: '2019',
@@ -64,16 +71,16 @@ const educationItems = [
 ]
 
 const selectedTraining = [
+  'Foundational C# with Microsoft — freeCodeCamp / Microsoft · Issued April 2026',
   'Become a React Developer - LinkedIn Learning',
   'React: Creating and Hosting a Full-Stack Site - LinkedIn Learning',
   'React: Ecosystems - LinkedIn Learning',
-  'SEO Strategy: Link Building - LinkedIn Learning',
-  'Foundational C# - freeCodeCamp & Microsoft',
-  'Microsoft Certified Database Administrator (SQL Server)',
-  'Microsoft SQL Server & .NET Development (ADO.NET, Transact-SQL)',
+  'SEO Strategy: Link Building — LinkedIn · Issued February 2023',
 ]
 
 const additionalDevelopment = [
+  'Microsoft Certified Database Administrator (SQL Server)',
+  'Microsoft SQL Server & .NET Development (ADO.NET, Transact-SQL)',
   'React learning track: Learning React.js, Essential Training, and Building an Interface',
   'Fundamentals of Web Programming',
   'Programming with Microsoft ADO.NET',
@@ -91,7 +98,7 @@ function Resume() {
           <h2>Work history, education, training, and selected professional background.</h2>
         </div>
 
-        <div className="row g-5">
+        <div className="row g-4">
           <div className="col-lg-7">
             <div className="resume-column">
               <div className="resume-column-header">
@@ -155,6 +162,12 @@ function Resume() {
               </div>
 
               <div className="content-card certifications-card reveal-on-scroll">
+                <div id="azure-certification" className="azure-certification">
+                  <span className="section-kicker">Microsoft · Issued September 2026</span>
+                  <h4>Microsoft Certified: Azure Fundamentals</h4>
+                  <p><strong>AZ-900</strong> · Foundational Azure cloud knowledge</p>
+                  <p>Cloud concepts, core Azure services, architecture and management, security and governance fundamentals, monitoring and cloud operations.</p>
+                </div>
                 <h4>Selected Training & Certifications</h4>
                 <ul className="certification-list">
                   {selectedTraining.map((item) => (

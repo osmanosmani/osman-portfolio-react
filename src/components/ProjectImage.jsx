@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { defaultProjectImage, defaultProjectImageAlt } from '../data/projects'
 
 function ProjectImage({
@@ -11,11 +11,13 @@ function ProjectImage({
   fetchPriority = 'auto',
   fit = 'cover',
 }) {
-  const [currentSrc, setCurrentSrc] = useState(src || defaultProjectImage)
-
-  useEffect(() => {
-    setCurrentSrc(src || defaultProjectImage)
-  }, [src])
+  const [imageState, setImageState] = useState({ src, failed: false })
+  if (imageState.src !== src) {
+    setImageState({ src, failed: false })
+  }
+  const currentSrc = imageState.src === src && imageState.failed
+    ? defaultProjectImage
+    : src || defaultProjectImage
 
   const isFallbackImage = currentSrc === defaultProjectImage
 
@@ -29,7 +31,7 @@ function ProjectImage({
       fetchPriority={fetchPriority}
       onError={() => {
         if (currentSrc !== defaultProjectImage) {
-          setCurrentSrc(defaultProjectImage)
+          setImageState({ src, failed: true })
         }
       }}
       style={{
