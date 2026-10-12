@@ -8,12 +8,16 @@ import Portfolio from './components/Portfolio'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
 import ProjectCaseStudy from './components/ProjectCaseStudy'
+import DigitalMarketingCaseStudies from './components/DigitalMarketingCaseStudies'
+import { digitalMarketingPage } from './data/caseStudies'
 import { findProjectByPath } from './data/projects'
+import { professionalProfile } from './data/profile'
 
 function App() {
   const pathname = typeof window !== 'undefined' ? window.location.pathname : '/'
   const currentProject = findProjectByPath(pathname)
   const isProjectPage = pathname.startsWith('/projects/')
+  const isMarketingPage = pathname.replace(/\/+$/, '') === digitalMarketingPage.path
 
   useEffect(() => {
     const elements = document.querySelectorAll('.reveal-on-scroll')
@@ -36,12 +40,12 @@ function App() {
   }, [])
 
   useEffect(() => {
-    const title = currentProject
+    const title = isMarketingPage ? digitalMarketingPage.title : currentProject
       ? `${currentProject.title} | Osman Osmani`
-      : 'Osman Osmani | Frontend Developer / Web Developer'
-    const description = currentProject
+      : professionalProfile.title
+    const description = isMarketingPage ? digitalMarketingPage.description : currentProject
       ? `${currentProject.title} case study in the portfolio of Osman Osmani, covering project scope, screenshots, technology choices, and delivery context.`
-      : 'Portfolio of Osman Osmani, a Frontend Developer and Web Developer with full-stack, digital platform, WordPress, SEO, database, and modern web application experience.'
+      : professionalProfile.description
 
     document.title = title
 
@@ -59,17 +63,20 @@ function App() {
     twitterDescriptionMeta?.setAttribute('content', description)
 
     if (canonicalLink) {
-      const canonicalPath = currentProject?.caseStudyUrl ?? '/'
+      const canonicalPath = isMarketingPage ? digitalMarketingPage.path : currentProject?.caseStudyUrl ?? '/'
       canonicalLink.setAttribute('href', `https://osmanosmani.se${canonicalPath}`)
+      document.querySelector('meta[property="og:url"]')?.setAttribute('content', `https://osmanosmani.se${canonicalPath}`)
     }
-  }, [currentProject])
+  }, [currentProject, isMarketingPage])
 
   return (
     <>
-      <Header isProjectPage={isProjectPage} />
+      <Header isProjectPage={isProjectPage || isMarketingPage} />
 
       <main className="main">
-        {isProjectPage ? (
+        {isMarketingPage ? (
+          <DigitalMarketingCaseStudies />
+        ) : isProjectPage ? (
           <ProjectCaseStudy project={currentProject} />
         ) : (
           <>

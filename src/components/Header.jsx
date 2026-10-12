@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import profileSidebar from '../assets/profile-sidebar.webp'
+import { professionalProfile } from '../data/profile'
 
 const navItems = [
   { href: '#hero', label: 'Home', icon: 'bi bi-house' },
@@ -15,7 +16,7 @@ function Header({ isProjectPage = false }) {
   const [activeSection, setActiveSection] = useState(isProjectPage ? '#portfolio' : '#hero')
   const [pendingSection, setPendingSection] = useState('')
 
-  const scrollToSection = (href) => {
+  const scrollToSection = useCallback((href) => {
     if (isProjectPage) {
       window.location.assign(`/${href}`)
       return
@@ -36,11 +37,10 @@ function Header({ isProjectPage = false }) {
     })
 
     window.history.replaceState(null, '', href)
-  }
+  }, [isProjectPage])
 
   useEffect(() => {
     if (isProjectPage) {
-      setActiveSection('#portfolio')
       return undefined
     }
 
@@ -83,7 +83,7 @@ function Header({ isProjectPage = false }) {
     }, 60)
 
     return () => window.clearTimeout(timeoutId)
-  }, [isMenuOpen, pendingSection])
+  }, [isMenuOpen, pendingSection, scrollToSection])
 
   useEffect(() => {
     const handleResize = () => {
@@ -165,8 +165,8 @@ function Header({ isProjectPage = false }) {
               <li key={item.href}>
                 <a
                   href={isProjectPage ? `/${item.href}` : item.href}
-                  className={activeSection === item.href ? 'active' : ''}
-                  aria-current={activeSection === item.href ? 'page' : undefined}
+                  className={(isProjectPage ? '#portfolio' : activeSection) === item.href ? 'active' : ''}
+                  aria-current={(isProjectPage ? '#portfolio' : activeSection) === item.href ? 'page' : undefined}
                   onClick={(event) => handleNavClick(event, item.href)}
                 >
                   <i className={`${item.icon} navicon`}></i> {item.label}
@@ -178,7 +178,7 @@ function Header({ isProjectPage = false }) {
 
         <div className="social-links text-center">
           <a
-            href="https://www.linkedin.com"
+            href={professionalProfile.linkedin}
             className="linkedin"
             target="_blank"
             rel="noopener noreferrer"

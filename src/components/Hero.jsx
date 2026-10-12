@@ -1,23 +1,27 @@
 import profileHero from '../assets/profile-hero.webp'
+import { professionalProfile } from '../data/profile'
 
 function Hero() {
   return (
     <section id="hero" className="hero section">
       <div className="container">
         <div className="row align-items-center">
-          <div className="col-lg-6 order-2 order-lg-1">
+          <div className="col-lg-6 order-1">
             <div className="hero-content reveal-on-scroll">
               <h1>Osman Osmani</h1>
-              <p className="hero-role">Frontend Developer / Web Developer</p>
+              <p className="hero-role">{professionalProfile.positioning}</p>
+              <p className="hero-stack">{professionalProfile.technologies}</p>
 
               <p className="hero-description">
-                Frontend-focused Web Developer with 10+ years of experience
-                building responsive web applications, digital platforms, and
-                business-focused solutions. My work combines modern frontend
-                development with full-stack understanding, database experience,
-                and long-term web delivery focused on usability, performance,
-                and business value.
+                More than 10 years of professional experience in web development,
+                IT, web management and digital solutions. I combine that background
+                with modern frontend and full-stack project development, focused
+                on reliable interfaces and real business requirements.
               </p>
+              <ul className="hero-current" aria-label="Current experience and certification">
+                <li><a href="#resume">{professionalProfile.currentExperience}</a></li>
+                <li><a href="#azure-certification">{professionalProfile.certification}</a></li>
+              </ul>
 
               <div className="hero-actions">
                 <a href="#resume" className="btn-primary">
@@ -35,8 +39,8 @@ function Hero() {
                 </div>
 
                 <div className="stat-item">
-                  <span className="stat-number">3</span>
-                  <span className="stat-label">Key Roles</span>
+                  <span className="stat-number">MSc</span>
+                  <span className="stat-label">Computer Science & Engineering</span>
                 </div>
 
                 <div className="stat-item">
@@ -47,7 +51,7 @@ function Hero() {
             </div>
           </div>
 
-          <div className="col-lg-6 order-1 order-lg-2">
+          <div className="col-lg-6 order-2">
             <div className="hero-image reveal-on-scroll">
               <div className="image-wrapper">
                 <img

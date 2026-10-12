@@ -1,7 +1,9 @@
+import { professionalProfile } from '../data/profile'
+
 const footerLinks = [
   {
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com',
+    href: professionalProfile.linkedin,
     icon: 'bi bi-linkedin',
   },
   {
@@ -19,10 +21,13 @@ function Footer() {
           <div>
             <h3>Osman Osmani</h3>
             <p>
-              Frontend Developer / Web Developer with full-stack and digital
-              platform experience, focused on responsive and business-oriented
-              web solutions.
+              Experienced Web Developer expanding into modern frontend and
+              full-stack development, with practical React, TypeScript and
+              C#/.NET projects and foundational Azure certification.
             </p>
+            <a href="/case-studies/digital-marketing" className="footer-case-link">
+              Digital Marketing &amp; SEO Case Studies
+            </a>
           </div>
 
           <div className="footer-links">

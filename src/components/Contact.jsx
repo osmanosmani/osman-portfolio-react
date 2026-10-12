@@ -139,8 +139,10 @@ function Contact() {
                 collaboration.
               </p>
               <p className="contact-opportunity-line">
-                I am open to frontend, web developer, full-stack junior,
-                internship, and technical project opportunities.
+                Open to Web Developer, Frontend Developer, Full-Stack Developer
+                and Web Application Developer opportunities. My professional
+                web background is complemented by growing modern-stack project
+                experience and current Qualipro APL.
               </p>
 
               <div className="contact-list">
