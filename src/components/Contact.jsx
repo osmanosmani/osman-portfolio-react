@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { submitContactMessage } from '../utils/submitContactMessage'
 
 const contactItems = [
   {
@@ -21,31 +22,6 @@ const contactItems = [
   },
 ]
 
-const getContactApiUrl = () => {
-  if (typeof window === 'undefined') {
-    return '/api/contact.php'
-  }
-
-  const isLocalDevelopmentHost =
-    ['localhost', '127.0.0.1'].includes(window.location.hostname) &&
-    window.location.port &&
-    window.location.port !== '80' &&
-    window.location.port !== '443'
-
-  if (isLocalDevelopmentHost) {
-    return 'http://localhost/profilo/osman-portfolio-react/api/contact.php'
-  }
-
-  const segments = window.location.pathname.split('/').filter(Boolean)
-  const cleanedSegments =
-    segments.length > 0 && segments[segments.length - 1].includes('.')
-      ? segments.slice(0, -1)
-      : segments
-  const basePath = cleanedSegments.length > 0 ? `/${cleanedSegments.join('/')}` : ''
-
-  return `${window.location.origin}${basePath}/api/contact.php`
-}
-
 function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -59,10 +35,12 @@ function Contact() {
   const handleChange = (event) => {
     const { name, value } = event.target
     setFormData((current) => ({ ...current, [name]: value }))
+    setFormStatus({ type: '', message: '' })
   }
 
   const handleSubmit = async (event) => {
     event.preventDefault()
+    if (isSubmitting) return
 
     const { name, email, subject, message } = formData
 
@@ -76,7 +54,7 @@ function Contact() {
 
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-    if (!emailPattern.test(email)) {
+    if (!emailPattern.test(email.trim())) {
       setFormStatus({
         type: 'error',
         message: 'Please enter a valid email address.',
@@ -88,19 +66,7 @@ function Contact() {
     setFormStatus({ type: '', message: '' })
 
     try {
-      const response = await fetch(getContactApiUrl(), {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-
-      const data = await response.json()
-
-      if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Something went wrong while sending the message.')
-      }
+      await submitContactMessage(formData)
 
       setFormStatus({
         type: 'success',
@@ -112,10 +78,10 @@ function Contact() {
         subject: '',
         message: '',
       })
-    } catch (error) {
+    } catch {
       setFormStatus({
         type: 'error',
-        message: error.message || 'Message could not be sent.',
+        message: 'We could not confirm your message was sent. Please email me directly using the link below. Your draft has been kept.',
       })
     } finally {
       setIsSubmitting(false)
@@ -170,7 +136,7 @@ function Contact() {
 
           <div className="col-lg-7">
             <div className="content-card contact-form-card reveal-on-scroll">
-              <form className="contact-form" onSubmit={handleSubmit}>
+              <form className="contact-form" onSubmit={handleSubmit} aria-busy={isSubmitting}>
                 <div className="row g-3">
                   <div className="col-md-6">
                     <label htmlFor="name" className="form-label">
@@ -185,6 +151,8 @@ function Contact() {
                       value={formData.name}
                       onChange={handleChange}
                       autoComplete="name"
+                      maxLength={150}
+                      disabled={isSubmitting}
                       required
                     />
                   </div>
@@ -201,6 +169,8 @@ function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       autoComplete="email"
+                      maxLength={254}
+                      disabled={isSubmitting}
                       required
                     />
                   </div>
@@ -216,6 +186,8 @@ function Contact() {
                       placeholder="Subject"
                       value={formData.subject}
                       onChange={handleChange}
+                      maxLength={150}
+                      disabled={isSubmitting}
                       required
                     />
                   </div>
@@ -231,6 +203,8 @@ function Contact() {
                       placeholder="Write your message"
                       value={formData.message}
                       onChange={handleChange}
+                      maxLength={10000}
+                      disabled={isSubmitting}
                       required
                     ></textarea>
                   </div>
@@ -242,6 +216,9 @@ function Contact() {
                         aria-live="polite"
                       >
                         {formStatus.message}
+                        {formStatus.type === 'error' && (
+                          <> <a href="mailto:osmanosmani@gmail.com">Email osmanosmani@gmail.com</a></>
+                        )}
                       </div>
                     </div>
                   ) : null}
