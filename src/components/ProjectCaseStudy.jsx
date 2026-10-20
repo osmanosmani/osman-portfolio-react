@@ -1,7 +1,8 @@
 import ProjectImage from './ProjectImage'
 import { getProjectStatusClass } from '../utils/projectStatus'
+import { localizedPath } from '../utils/navigation'
 
-function ProjectCaseStudy({ project }) {
+function ProjectCaseStudy({ project, language = 'en' }) {
   if (!project) {
     return (
       <section className="project-page section">
@@ -14,8 +15,8 @@ function ProjectCaseStudy({ project }) {
               continue browsing selected work and case studies.
             </p>
             <div className="project-page-links">
-              <a href="/#portfolio" className="project-link">
-                <i className="bi bi-arrow-left"></i>
+              <a href={localizedPath('/projects', language)} className="project-link">
+                <i className="bi bi-arrow-left" aria-hidden="true"></i>
                 Back to Portfolio
               </a>
             </div>
@@ -44,8 +45,8 @@ function ProjectCaseStudy({ project }) {
     <section className="project-page section">
       <div className="container">
         <div className="project-page-header reveal-on-scroll">
-          <a href="/#portfolio" className="project-breadcrumb">
-            <i className="bi bi-arrow-left"></i>
+          <a href={localizedPath('/projects', language)} className="project-breadcrumb">
+            <i className="bi bi-arrow-left" aria-hidden="true"></i>
             Back to Portfolio
           </a>
         </div>

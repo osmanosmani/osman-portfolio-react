@@ -89,17 +89,20 @@ const additionalDevelopment = [
   'First Line Management',
 ]
 
-function Resume() {
+function Resume({ educationOnly = false }) {
+  const ColumnHeading = educationOnly ? 'h2' : 'h3'
+  const ItemHeading = educationOnly ? 'h3' : 'h4'
+  const GroupHeading = educationOnly ? 'h4' : 'h5'
   return (
     <section id="resume" className="resume section">
       <div className="container">
-        <div className="section-heading reveal-on-scroll">
+        {!educationOnly && <div className="section-heading reveal-on-scroll">
           <span className="section-kicker">Experience</span>
           <h2>Work history, education, training, and selected professional background.</h2>
-        </div>
+        </div>}
 
         <div className="row g-4">
-          <div className="col-lg-7">
+          {!educationOnly && <div className="col-lg-7">
             <div className="resume-column">
               <div className="resume-column-header">
                 <h3>Work Experience</h3>
@@ -138,12 +141,12 @@ function Resume() {
                 </ul>
               </div>
             </div>
-          </div>
+          </div>}
 
-          <div className="col-lg-5">
+          <div className={educationOnly ? 'col-12' : 'col-lg-5'}>
             <div className="resume-column">
               <div className="resume-column-header">
-                <h3>Education & Professional Development</h3>
+                <ColumnHeading>Education & Professional Development</ColumnHeading>
                 <p>
                   Current studies, academic background, selected training, and
                   ongoing professional development relevant to the portfolio.
@@ -154,7 +157,7 @@ function Resume() {
                 {educationItems.map((item) => (
                   <article className="timeline-item reveal-on-scroll" key={`${item.year}-${item.title}`}>
                     <span className="timeline-year">{item.year}</span>
-                    <h4>{item.title}</h4>
+                    <ItemHeading>{item.title}</ItemHeading>
                     <span className="timeline-location">{item.institution}</span>
                     <p>{item.details}</p>
                   </article>
@@ -164,11 +167,11 @@ function Resume() {
               <div className="content-card certifications-card reveal-on-scroll">
                 <div id="azure-certification" className="azure-certification">
                   <span className="section-kicker">Microsoft · Issued September 2026</span>
-                  <h4>Microsoft Certified: Azure Fundamentals</h4>
+                  <ItemHeading>Microsoft Certified: Azure Fundamentals</ItemHeading>
                   <p><strong>AZ-900</strong> · Foundational Azure cloud knowledge</p>
                   <p>Cloud concepts, core Azure services, architecture and management, security and governance fundamentals, monitoring and cloud operations.</p>
                 </div>
-                <h4>Selected Training & Certifications</h4>
+                <ItemHeading>Selected Training & Certifications</ItemHeading>
                 <ul className="certification-list">
                   {selectedTraining.map((item) => (
                     <li key={item}>{item}</li>
@@ -176,7 +179,7 @@ function Resume() {
                 </ul>
 
                 <div className="training-group">
-                  <h5>Additional Professional Development</h5>
+                  <GroupHeading>Additional Professional Development</GroupHeading>
                   <ul className="certification-list compact">
                     {additionalDevelopment.map((item) => (
                       <li key={item}>{item}</li>

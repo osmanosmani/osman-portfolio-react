@@ -8,6 +8,11 @@ import munamiiCakeryImage from '../assets/projects/munamii-cakery-optimized.jpg'
 import nackaByggpartnerImage from '../assets/projects/nacka-byggpartner-optimized.jpg'
 import nordicWebHubHomeImage from '../assets/projects/nordicwebhub-home-optimized.jpg'
 import nordicWebHubPlaceholderImage from '../assets/projects/nordicwebhub-placeholder.svg'
+import nordicDashboardPreview from '../assets/projects/nordicwebhub-customer-dashboard.webp'
+import nordicLandingPreview from '../assets/projects/nordicwebhub-home.webp'
+import cineScopePreview from '../assets/projects/cinescope-homepage.webp'
+import nackaPreview from '../assets/projects/nacka-byggpartner-homepage-top.webp'
+import nackaFullScreenshot from '../assets/projects/nacka-byggpartner-homepage-full.webp'
 
 export const defaultProjectImage = nordicWebHubPlaceholderImage
 export const defaultProjectImageAlt = 'Project preview placeholder'
@@ -16,6 +21,15 @@ export const projects = [
   {
     id: 1,
     slug: 'nordicwebhub',
+    shortTitle: 'NordicWebHub',
+    homePreview: {
+      order: 1, src: nordicDashboardPreview, fullSrc: nordicDashboardPreview,
+      width: 1900, height: 910, demo: true,
+      mobileWidth: 950, mobileX: -110, mobileY: -110,
+      caption: { en: 'Customer dashboard', sv: 'Kundöversikt' },
+      alt: { en: 'NordicWebHub customer dashboard with projects, support tickets and requests (demo data).', sv: 'NordicWebHubs kundöversikt med projekt, supportärenden och förfrågningar (demodata).' },
+      secondary: { src: nordicLandingPreview, width: 1904, height: 919 },
+    },
     title: 'NordicWebHub – Full-Stack Web Services Management Platform',
     type: 'featured',
     category: 'Full-Stack B2B SaaS Client Portal',
@@ -106,6 +120,14 @@ export const projects = [
   {
     id: 2,
     slug: 'cinescope',
+    shortTitle: 'CineScope',
+    homePreview: {
+      order: 2, src: cineScopePreview, fullSrc: cineScopePreview,
+      width: 1663, height: 887,
+      mobileWidth: 832, mobileX: -120, mobileY: -20,
+      caption: { en: 'Movie discovery home page', sv: 'Startsida för filmupptäckt' },
+      alt: { en: 'CineScope movie discovery homepage with search and a featured movie.', sv: 'CineScopes startsida med filmsökning och en utvald film.' },
+    },
     title: 'CineScope – Modern Movie Discovery Platform',
     type: 'featured',
     category: 'Practical Full-Stack .NET Project',
@@ -232,6 +254,15 @@ export const projects = [
   {
     id: 4,
     slug: 'nacka-byggpartner',
+    shortTitle: 'Nacka Byggpartner',
+    compactTitle: 'Nacka',
+    homePreview: {
+      order: 3, src: nackaPreview, fullSrc: nackaFullScreenshot,
+      width: 1280, height: 800,
+      mobileWidth: 640, mobileX: 0, mobileY: -96,
+      caption: { en: 'Home page, top section', sv: 'Startsida, övre delen' },
+      alt: { en: 'Nacka Byggpartner construction company homepage.', sv: 'Nacka Byggpartners startsida för byggtjänster.' },
+    },
     title: 'Nacka Byggpartner – Modern Construction Company Website',
     type: 'featured',
     category: 'Frontend Business Website',

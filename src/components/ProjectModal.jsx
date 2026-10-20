@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
 import ProjectImage from './ProjectImage'
 import { getProjectStatusClass } from '../utils/projectStatus'
+import { localizedPath } from '../utils/navigation'
 
-function ProjectModal({ project, onClose }) {
+function ProjectModal({ project, onClose, language = 'en' }) {
   const closeButtonRef = useRef(null)
 
   useEffect(() => {
@@ -113,7 +114,7 @@ function ProjectModal({ project, onClose }) {
             <div className="project-links">
               {project.caseStudyUrl ? (
                 <a
-                  href={project.caseStudyUrl}
+                  href={localizedPath(project.caseStudyUrl, language)}
                   className="project-link"
                   aria-label={`Open case study page for ${project.title}`}
                 >
@@ -159,7 +160,7 @@ function ProjectModal({ project, onClose }) {
             <div className="project-links">
               {project.caseStudyUrl ? (
                 <a
-                  href={project.caseStudyUrl}
+                  href={localizedPath(project.caseStudyUrl, language)}
                   className="project-link"
                   aria-label={`Open case study page for ${project.title}`}
                 >
