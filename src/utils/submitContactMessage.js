@@ -18,17 +18,20 @@ export async function submitContactMessage(formData, {
   )
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) throw new Error('Invalid email address.')
 
+  const body = new FormData()
+  Object.entries({
+    access_key: accessKey.trim(),
+    from_name: 'Osman Osmani Portfolio',
+    name,
+    email,
+    subject: `Portfolio Contact: ${subject}`,
+    message,
+  }).forEach(([field, value]) => body.append(field, value))
+
   const response = await fetchImpl(endpoint, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-    body: JSON.stringify({
-      access_key: accessKey.trim(),
-      from_name: 'Osman Osmani Portfolio',
-      name,
-      email,
-      subject: `Portfolio Contact: ${subject}`,
-      message,
-    }),
+    // Let the browser set the multipart boundary, as in Web3Forms' React example.
+    body,
     signal: AbortSignal.timeout(20000),
   })
 

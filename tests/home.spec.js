@@ -1,5 +1,14 @@
 import { test, expect } from '@playwright/test'
 
+async function readContactSubmission(request) {
+  expect(request.url()).toBe('https://api.web3forms.com/submit')
+  expect(request.method()).toBe('POST')
+  const contentType = request.headers()['content-type']
+  expect(contentType).toMatch(/^multipart\/form-data;\s*boundary=.+/)
+  const body = new Response(request.postDataBuffer(), { headers: { 'Content-Type': contentType } })
+  return Object.fromEntries(await body.formData())
+}
+
 for (const language of ['en', 'sv']) {
   for (const width of [320, 390, 900, 1024, 1280]) {
     test(`Home ${language} fits ${width}px with working project tabs`, async ({ page }) => {
@@ -93,9 +102,7 @@ test('contact validates Subject, keeps failed drafts and clears successful submi
       await route.fulfill({ status: 204, headers: { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, OPTIONS', 'access-control-allow-headers': 'Content-Type' } })
       return
     }
-    expect(route.request().url()).toBe('https://api.web3forms.com/submit')
-    expect(route.request().method()).toBe('POST')
-    requests.push(route.request().postDataJSON())
+    requests.push(await readContactSubmission(route.request()))
     await route.fulfill({ ...response, headers: { 'access-control-allow-origin': '*' } })
   })
   await page.goto('/sv/')
@@ -184,8 +191,7 @@ test('legacy contact form validates, keeps failed drafts and sends through Web3F
       await route.fulfill({ status: 204, headers: { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, OPTIONS', 'access-control-allow-headers': 'Content-Type' } })
       return
     }
-    expect(route.request().url()).toBe('https://api.web3forms.com/submit')
-    requests.push(route.request().postDataJSON())
+    requests.push(await readContactSubmission(route.request()))
     await route.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify({ success }) })
   })
   await page.goto('/')
