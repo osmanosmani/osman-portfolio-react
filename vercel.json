@@ -1,0 +1,10 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/case-studies/:path*", "destination": "/index.html" },
+    { "source": "/projects/:path*", "destination": "/index.html" },
+    { "source": "/experience", "destination": "/index.html" },
+    { "source": "/credentials", "destination": "/index.html" },
+    { "source": "/sv/:path*", "destination": "/index.html" }
+  ]
+}
