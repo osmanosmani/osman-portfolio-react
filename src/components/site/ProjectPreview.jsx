@@ -42,48 +42,55 @@ function ScreenshotDialog({ project, language, text, onDismiss, returnFocusRef }
 }
 
 export default function ProjectPreview({ projects, language, text, projectCount }) {
-  const [selectedIndex, setSelectedIndex] = useState(0)
+  const [windowOrder, setWindowOrder] = useState(() => [...projects.map((_, index) => index).slice(1), 0])
+  const selectedIndex = windowOrder[windowOrder.length - 1]
   const [viewerOpen, setViewerOpen] = useState(false)
   const tabRefs = useRef([])
   const viewerButton = useRef(null)
   const project = projects[selectedIndex]
   const preview = project.homePreview
 
+  function selectProject(index) {
+    setWindowOrder((current) => current[current.length - 1] === index ? current : [...current.filter((item) => item !== index), index])
+  }
+
   function handleTabKey(event, index) {
     let next
-    if (event.key === 'ArrowRight') next = (index + 1) % projects.length
-    if (event.key === 'ArrowLeft') next = (index - 1 + projects.length) % projects.length
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % projects.length
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + projects.length) % projects.length
     if (event.key === 'Home') next = 0
     if (event.key === 'End') next = projects.length - 1
     if (next === undefined) return
     event.preventDefault()
-    setSelectedIndex(next)
+    selectProject(next)
     tabRefs.current[next]?.focus()
   }
 
   return (
     <div className="dc-project-preview dc-enter">
-      <figure className="dc-frame" id="project-preview-panel" role="tabpanel" aria-labelledby={`preview-tab-${project.slug}`}>
-        <div className="dc-browser-bar" aria-hidden="true"><i /><i /><i /><span>{project.shortTitle} · {preview.caption[language]}</span></div>
-        <div className="dc-screenshot-window">
-          {preview.demo && <span className="dc-demo-badge">{text.demoData}</span>}
-          <img src={preview.src} width={preview.width} height={preview.height} alt={preview.alt[language]}
-            fetchPriority={selectedIndex === 0 ? 'high' : 'auto'} decoding="async"
-            style={{ '--preview-width': `${preview.mobileWidth}px`, '--preview-x': `${preview.mobileX}px`, '--preview-y': `${preview.mobileY}px` }} />
+      <p className="dc-window-hint">{text.windowHint}</p>
+      <div className="dc-window-stack" style={{ '--window-count': projects.length }}>
+        <div className="dc-window-tabs" role="tablist" aria-label={text.previews} aria-orientation="vertical">
+          {projects.map((item, index) => (
+            <button type="button" role="tab" key={item.slug} ref={(element) => { tabRefs.current[index] = element }}
+              id={`preview-tab-${item.slug}`} aria-label={item.shortTitle} aria-selected={index === selectedIndex} aria-controls="project-preview-panel"
+              style={{ '--window-position': windowOrder.indexOf(index) }}
+              tabIndex={index === selectedIndex ? 0 : -1} onClick={() => selectProject(index)} onKeyDown={(event) => handleTabKey(event, index)}>
+              <span className="dc-window-dots" aria-hidden="true"><i /><i /><i /></span>
+              <span className="dc-window-title">{item.shortTitle}</span>
+              <span className="dc-window-context" aria-hidden="true">{item.homePreview.caption[language]}</span>
+              {index === selectedIndex && <span className="dc-window-current" aria-hidden="true">{text.currentPreview}</span>}
+            </button>
+          ))}
         </div>
-      </figure>
-      <div className="dc-project-tabs" role="tablist" aria-label={text.previews}>
-        {projects.map((item, index) => (
-          <button type="button" role="tab" key={item.slug} ref={(element) => { tabRefs.current[index] = element }}
-            id={`preview-tab-${item.slug}`} aria-selected={index === selectedIndex} aria-controls="project-preview-panel"
-            tabIndex={index === selectedIndex ? 0 : -1} onClick={() => setSelectedIndex(index)} onKeyDown={(event) => handleTabKey(event, index)}>
-            <img className="dc-tab-thumbnail" src={item.homePreview.src} alt="" width="144" height="90" loading="lazy" />
-            <span className="dc-tab-label"><span className="dc-tab-number" aria-hidden="true">0{index + 1}</span>
-              <span className="dc-tab-full-name">{item.shortTitle}</span>
-              <span className="dc-tab-short-name" aria-hidden="true">{item.compactTitle || item.shortTitle}</span>
-            </span>
-          </button>
-        ))}
+        <figure className="dc-frame dc-window-panel" id="project-preview-panel" role="tabpanel" aria-labelledby={`preview-tab-${project.slug}`}>
+          <div key={project.slug} className="dc-screenshot-window">
+            {preview.demo && <span className="dc-demo-badge">{text.demoData}</span>}
+            <img src={preview.src} width={preview.width} height={preview.height} alt={preview.alt[language]}
+              fetchPriority={selectedIndex === 0 ? 'high' : 'auto'} decoding="async"
+              style={{ '--preview-width': `${preview.mobileWidth}px`, '--preview-x': `${preview.mobileX}px`, '--preview-y': `${preview.mobileY}px` }} />
+          </div>
+        </figure>
       </div>
       <div className="dc-preview-caption tw:flex tw:flex-wrap tw:items-center tw:justify-between tw:gap-2">
         <span>{preview.caption[language]}{preview.demo && <> · <strong>{text.demoData}</strong></>}</span>

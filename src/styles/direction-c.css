@@ -89,24 +89,28 @@ body { background: var(--dc-bg); }
 .dc-screenshot-window { position: relative; aspect-ratio: 16/9; overflow: hidden; background: var(--dc-sunken); }
 .dc-screenshot-window img { width: 100%; height: 100%; object-fit: cover; object-position: left top; }
 .dc-demo-badge { position: absolute; top: 10px; right: 10px; z-index: 1; padding: 4px 10px; background: var(--dc-accent); color: var(--dc-on-accent); border-radius: 2px; font-size: 12px; font-weight: 700; }
-.dc-project-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-top: 18px; }
-.dc-project-tabs button { display: grid; grid-template-columns: 72px minmax(0, 1fr); align-items: center; gap: 12px; min-height: 64px; padding: 12px 0 4px; background: transparent; border: 0; border-top: 2px solid var(--dc-hair); text-align: left; }
-.dc-project-tabs button[aria-selected=true] { border-top-color: var(--dc-accent); }
-.dc-tab-thumbnail { width: 72px; height: 45px; object-fit: cover; object-position: left top; border: 1px solid var(--dc-hair); border-radius: 2px; opacity: .7; }
-[aria-selected=true] .dc-tab-thumbnail { opacity: 1; }
-.dc-tab-label { display: grid; min-width: 0; font-size: 15px; font-weight: 600; line-height: 1.25; color: var(--dc-muted); }
-[aria-selected=true] .dc-tab-label { color: var(--dc-ink); }
-.dc-tab-number { font-size: 12px; font-weight: 400; color: var(--dc-subtle); margin-bottom: 3px; }
-[aria-selected=true] .dc-tab-number { color: var(--dc-accent); }
-.dc-tab-short-name { display: none; }
+.dc-window-hint { margin-bottom: 14px !important; color: var(--dc-muted); font-size: 13px; }
+.dc-window-stack { --window-step: 44px; --window-inset: 14px; }
+.dc-window-tabs { position: relative; height: calc(var(--window-count) * var(--window-step)); isolation: isolate; }
+.dc-window-tabs button { position: absolute; top: calc(var(--window-position) * var(--window-step)); left: calc((var(--window-count) - 1 - var(--window-position)) * var(--window-inset)); right: calc((var(--window-count) - 1 - var(--window-position)) * var(--window-inset)); z-index: calc(var(--window-position) + 1); display: flex; align-items: center; gap: 12px; height: var(--window-step); padding: 0 14px; border: 1px solid var(--dc-hair); border-bottom: 0; border-radius: 6px 6px 0 0; background: var(--dc-surface); color: var(--dc-muted); text-align: left; box-shadow: 0 -4px 20px -12px #0009; }
+.dc-window-tabs button:hover { background: var(--dc-surface-2); color: var(--dc-ink); }
+.dc-window-tabs button[aria-selected=true] { background: var(--dc-surface-2); color: var(--dc-ink); }
+.dc-window-tabs button:focus-visible { outline-offset: -4px; }
+.dc-window-dots { display: inline-flex; gap: 5px; flex: none; }
+.dc-window-dots i { width: 6px; height: 6px; border-radius: 50%; background: var(--dc-line); }
+[aria-selected=true] .dc-window-dots i:first-child { background: var(--dc-accent); }
+.dc-window-title { flex: none; font-size: 14px; font-weight: 600; white-space: nowrap; }
+.dc-window-context { min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; color: var(--dc-muted); font-size: 12px; }
+.dc-window-current { margin-left: auto; color: var(--dc-accent); font-size: 11px; font-weight: 600; }
+.dc-window-panel { position: relative; border-top: 0; border-radius: 0 0 6px 6px; }
+@container project-preview (max-width: 520px) {
+  .dc-window-stack { --window-inset: 8px; }
+  .dc-window-tabs button { gap: 9px; padding-inline: 10px; }
+  .dc-window-context { display: none; }
+}
 .dc-preview-caption { margin-top: 12px; color: var(--dc-muted); font-size: 14px; }
 .dc-preview-caption strong { color: var(--dc-accent); font-weight: 600; }
 .dc-preview-links { margin-top: 4px; font-size: 14px; }
-@container project-preview (max-width: 650px) {
-  .dc-project-tabs button { grid-template-columns: minmax(0, 1fr); align-content: start; gap: 8px; }
-  .dc-tab-thumbnail { width: 100%; height: auto; aspect-ratio: 16/9; }
-}
-
 /* Flagship and a deliberately compact career teaser. */
 .dc-flagship { background: var(--dc-surface); padding: 80px 0 88px; }
 .dc-flagship-grid { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: 64px; align-items: center; }
@@ -223,15 +227,6 @@ body { background: var(--dc-bg); }
   .dc-eyebrow { font-size: 12px; }
   .dc-screenshot-window, .dc-flagship-image .dc-screenshot-window { aspect-ratio: 4/3; }
   .dc-screenshot-window img { position: absolute; width: var(--preview-width); max-width: none; height: auto; left: var(--preview-x); top: var(--preview-y); }
-  .dc-project-tabs { grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr) minmax(0, .8fr); gap: 0; margin-top: 12px; border: 1px solid var(--dc-line); border-radius: 2px; }
-  .dc-project-tabs button { grid-template-columns: minmax(0, 1fr); align-content: center; justify-items: center; min-height: 44px; padding: 6px 4px; border: 0; border-left: 1px solid var(--dc-line); text-align: center; }
-  .dc-project-tabs button:first-child { border-left: 0; }
-  .dc-project-tabs button[aria-selected=true] { background: var(--dc-accent); }
-  .dc-project-tabs button[aria-selected=true] .dc-tab-label { color: var(--dc-on-accent); }
-  .dc-tab-label { font-size: 14px; }
-  .dc-tab-thumbnail, .dc-tab-number { display: none !important; }
-  .dc-tab-full-name { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
-  .dc-tab-short-name { display: inline; }
   .dc-preview-caption .dc-small-button { width: 100%; margin-top: 6px; }
   .dc-preview-links { flex-direction: column; align-items: flex-start; }
   .dc-flagship { padding: 48px 0 56px; }
@@ -258,9 +253,12 @@ body { background: var(--dc-bg); }
 @media (max-width: 340px) {
   .dc-header > .dc-wrap { gap: 4px; }
   .dc-menu-button { padding-inline: 10px; }
-  .dc-tab-label { font-size: 13.5px; }
+  .dc-window-title { font-size: 13px; }
 }
 @media (prefers-reduced-motion: no-preference) {
+  .dc-window-tabs button { transition: top .3s ease, left .3s ease, right .3s ease, background-color .2s ease; }
+  .dc-window-panel .dc-screenshot-window { animation: dc-window-reveal .25s ease-out both; }
+  @keyframes dc-window-reveal { from { opacity: .5; } to { opacity: 1; } }
   .dc-enter { animation: dc-enter .65s ease-out both; }
   .dc-project-preview.dc-enter { animation-delay: .12s; }
   @keyframes dc-enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
