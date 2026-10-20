@@ -192,6 +192,7 @@ body { background: var(--dc-bg); }
 .dc-legacy .section { padding: 40px 0 56px; }
 .dc-legacy p { margin-bottom: 1rem; }
 .dc-legacy .reveal-on-scroll { opacity: 1; transform: none; }
+.dc-legacy .marketing-figure .portfolio-image-wrap { width: 100%; min-height: 0; }
 .dc-legacy .container { max-width: 1200px; padding-inline: 40px; }
 .dc-credentials-note { padding: 20px 24px; border: 1px solid var(--dc-hair); background: var(--dc-surface); border-radius: 6px; margin-bottom: 24px !important; }
 .dc-not-found { padding-block: 80px; min-height: 65vh; }

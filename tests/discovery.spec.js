@@ -78,3 +78,22 @@ for (const language of languages) {
     })
   }
 }
+
+for (const language of languages) {
+  test('Marketing detail ' + language.code + ' keeps images within their columns', async ({ page }) => {
+    for (const width of [320, 390, 1280]) {
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto(language.prefix + '/case-studies/digital-marketing')
+      await page.evaluate(() => document.fonts.ready)
+      const imagesFit = await page.locator('.marketing-figure .portfolio-image-wrap').evaluateAll((wrappers) =>
+        wrappers.length === 3 && wrappers.every((wrapper) => {
+          const image = wrapper.getBoundingClientRect()
+          const figure = wrapper.parentElement.getBoundingClientRect()
+          return image.left >= figure.left - 1 && image.right <= figure.right + 1
+        }),
+      )
+      expect(imagesFit).toBe(true)
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+    }
+  })
+}
