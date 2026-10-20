@@ -1,9 +1,11 @@
 import { useEffect, useRef } from 'react'
 import ProjectImage from './ProjectImage'
 import { getProjectStatusClass } from '../utils/projectStatus'
+import { localizedPath } from '../utils/navigation'
 
-function ProjectModal({ project, onClose }) {
+function ProjectModal({ project, onClose, language = 'en' }) {
   const closeButtonRef = useRef(null)
+  const modalRef = useRef(null)
 
   useEffect(() => {
     if (!project) {
@@ -17,15 +19,40 @@ function ProjectModal({ project, onClose }) {
 
     const handleKeyDown = (event) => {
       if (event.key === 'Escape') {
+        event.preventDefault()
         onClose()
+        return
+      }
+
+      if (event.key === 'Tab') {
+        const focusable = Array.from(modalRef.current.querySelectorAll(
+          'a[href], button, input, select, textarea, [tabindex]',
+        )).filter((element) => !element.disabled && element.tabIndex >= 0 && element.getClientRects().length > 0)
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        const active = document.activeElement
+
+        if (!modalRef.current.contains(active) || (event.shiftKey ? active === first : active === last)) {
+          event.preventDefault()
+          const target = event.shiftKey ? last : first
+          target?.focus()
+        }
+      }
+    }
+
+    const keepFocusInside = (event) => {
+      if (!modalRef.current.contains(event.target)) {
+        closeButtonRef.current?.focus()
       }
     }
 
     window.addEventListener('keydown', handleKeyDown)
+    document.addEventListener('focusin', keepFocusInside)
 
     return () => {
       document.body.style.overflow = previousOverflow
       window.removeEventListener('keydown', handleKeyDown)
+      document.removeEventListener('focusin', keepFocusInside)
       if (previousActiveElement instanceof HTMLElement) {
         previousActiveElement.focus()
       }
@@ -43,6 +70,7 @@ function ProjectModal({ project, onClose }) {
   return (
     <div className="project-modal-backdrop" onClick={onClose}>
       <div
+        ref={modalRef}
         className="project-modal content-card"
         role="dialog"
         aria-modal="true"
@@ -113,7 +141,7 @@ function ProjectModal({ project, onClose }) {
             <div className="project-links">
               {project.caseStudyUrl ? (
                 <a
-                  href={project.caseStudyUrl}
+                  href={localizedPath(project.caseStudyUrl, language)}
                   className="project-link"
                   aria-label={`Open case study page for ${project.title}`}
                 >
@@ -159,7 +187,7 @@ function ProjectModal({ project, onClose }) {
             <div className="project-links">
               {project.caseStudyUrl ? (
                 <a
-                  href={project.caseStudyUrl}
+                  href={localizedPath(project.caseStudyUrl, language)}
                   className="project-link"
                   aria-label={`Open case study page for ${project.title}`}
                 >

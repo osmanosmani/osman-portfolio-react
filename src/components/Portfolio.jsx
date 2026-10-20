@@ -8,8 +8,11 @@ import {
   learningProjects,
 } from '../data/projects'
 import { getProjectStatusClass } from '../utils/projectStatus'
+import { localizedPath } from '../utils/navigation'
+import { digitalMarketingPage } from '../data/caseStudies'
+import { homeContent } from '../data/homeContent'
 
-function Portfolio() {
+function Portfolio({ language = 'en' }) {
   const [selectedProject, setSelectedProject] = useState(null)
   const secondaryFeaturedProjects = featuredProjects.filter(
     (project) => project.id !== primaryFeaturedProject.id,
@@ -118,7 +121,7 @@ function Portfolio() {
 
                 {primaryFeaturedProject.caseStudyUrl ? (
                   <a
-                    href={primaryFeaturedProject.caseStudyUrl}
+                    href={localizedPath(primaryFeaturedProject.caseStudyUrl, language)}
                     className="project-link"
                     aria-label={`Open case study page for ${primaryFeaturedProject.title}`}
                   >
@@ -213,7 +216,7 @@ function Portfolio() {
                 <span className="section-kicker">Learning / project experience</span>
                 <h4>{project.title}</h4>
                 <p>{project.shortDescription}</p>
-                <a className="project-link" href={project.caseStudyUrl}>View case study <i className="bi bi-arrow-right" aria-hidden="true"></i></a>
+                <a className="project-link" href={localizedPath(project.caseStudyUrl, language)}>View case study <i className="bi bi-arrow-right" aria-hidden="true"></i></a>
               </article>
             </div>
           ))}
@@ -225,9 +228,9 @@ function Portfolio() {
             Selected website and digital platform work delivered through previous professional roles,
             including public sector, corporate, and freelance environments.
           </p>
-          <a href="/case-studies/digital-marketing" className="project-link">
+          <a href={localizedPath(digitalMarketingPage.path, language)} className="project-link" lang={language}>
             <i className="bi bi-arrow-right" aria-hidden="true"></i>
-            Digital communications & marketing context
+            {homeContent[language].marketingTitle}
           </a>
         </div>
 
@@ -284,7 +287,7 @@ function Portfolio() {
         </div>
       </div>
 
-      <ProjectModal project={selectedProject} onClose={() => setSelectedProject(null)} />
+      <ProjectModal project={selectedProject} language={language} onClose={() => setSelectedProject(null)} />
     </section>
   )
 }

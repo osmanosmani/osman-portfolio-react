@@ -1,4 +1,5 @@
 import ProjectImage from './ProjectImage'
+import { localizedPath } from '../utils/navigation'
 import { digitalMarketingCaseStudies, supportingMarketingReferences } from '../data/caseStudies'
 
 const featuredStudy = digitalMarketingCaseStudies.find((study) => study.results)
@@ -92,7 +93,7 @@ function SupportingDocument({ study }) {
   )
 }
 
-function CaseStudy({ study, index }) {
+function CaseStudy({ study, index, language }) {
   const titleId = `${study.id}-title`
 
   return (
@@ -117,7 +118,7 @@ function CaseStudy({ study, index }) {
             </div>
             <figcaption>{study.imageCaption}</figcaption>
           </figure>
-          <a href={study.project.caseStudyUrl} className="project-link marketing-project-link">
+          <a href={localizedPath(study.project.caseStudyUrl, language)} className="project-link marketing-project-link">
             <i className="bi bi-code-slash" aria-hidden="true"></i> Website development project
           </a>
         </div>
@@ -147,12 +148,12 @@ function CaseStudy({ study, index }) {
   )
 }
 
-function DigitalMarketingCaseStudies() {
+function DigitalMarketingCaseStudies({ language = 'en' }) {
   return (
     <section className="project-page section marketing-page">
       <div className="container">
         <div className="project-page-header">
-          <a href="/#portfolio" className="project-breadcrumb"><i className="bi bi-arrow-left" aria-hidden="true"></i> Back to Portfolio</a>
+          <a href={localizedPath('/projects', language)} className="project-breadcrumb"><i className="bi bi-arrow-left" aria-hidden="true"></i> Back to Portfolio</a>
         </div>
 
         <header className="content-card project-page-card marketing-intro reveal-on-scroll">
@@ -185,7 +186,7 @@ function DigitalMarketingCaseStudies() {
           </nav>
         </header>
 
-        {digitalMarketingCaseStudies.map((study, index) => <CaseStudy key={study.id} study={study} index={index} />)}
+        {digitalMarketingCaseStudies.map((study, index) => <CaseStudy key={study.id} study={study} index={index} language={language} />)}
 
         <section id="supporting-work" className="marketing-supporting reveal-on-scroll" aria-labelledby="supporting-work-title">
           <h2 id="supporting-work-title">Supporting Work</h2>

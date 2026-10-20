@@ -1,23 +1,26 @@
 # Osman Portfolio React
 
-Personal portfolio website built with React and Vite, based on a Bootstrap portfolio structure and migrated section by section into reusable React components.
+Personal portfolio website built with React and Vite. The Direction C redesign introduces a shorter, bilingual Home page and top navigation while retaining the detailed professional content and existing case studies.
 
 ## Overview
 
 This project includes:
 
-- Fixed left sidebar navigation
-- Hero, About, Skills, Experience, Portfolio, Contact, and Footer sections
-- Responsive mobile sidebar menu
-- Real portfolio project images
-- Contact form UI with React validation
-- Web3Forms email delivery with validation, draft preservation and direct email fallback
+- Slate & Sand Home with English / Swedish content and a responsive top navigation
+- Three-project screenshot selector, keyboard navigation and full-image viewer
+- Projects, Experience and Credentials pages, with all eight project entries retained
+- Existing project modal, case-study URLs and professional marketing evidence
+- React contact form with required Subject, draft preservation and Web3Forms delivery
+
+Home implements the approved v3.1 design. Detailed pages retain their existing components and English content; the Swedish shell explicitly labels this. The Credentials page lists existing qualifications only: no private diplomas or certificate scans have been published. See `docs/DIRECTION-C.md` for migration scope and remaining work.
 
 ## Tech Stack
 
 - React
 - Vite
-- Bootstrap
+- Tailwind CSS 4 for the new shell and Home utilities
+- Scoped Direction C styles and self-hosted Public Sans / Fraunces fonts
+- Bootstrap retained in a legacy CSS layer for the detailed pages
 - Bootstrap Icons
 - Web3Forms for browser-to-email contact submissions
 
@@ -26,15 +29,27 @@ This project includes:
 ```text
 src/
   assets/
+    fonts/
+    projects/
   components/
-    Header.jsx
-    Hero.jsx
+    site/
     About.jsx
     Skills.jsx
     Resume.jsx
     Portfolio.jsx
-    Contact.jsx
-    Footer.jsx
+    ProjectCaseStudy.jsx
+  data/
+    projects.js
+    profile.js
+    homeContent.js
+  pages/
+    HomePage.jsx
+  hooks/
+    useContactForm.js
+  styles/
+    index.css
+    direction-c.css
+  utils/
   App.jsx
   App.css
   main.jsx
@@ -42,6 +57,10 @@ src/
 api/
   contact.php
   config.example.php
+
+public/
+  .htaccess
+tests/
 ```
 
 ## Run Locally
@@ -66,7 +85,7 @@ http://localhost:5173
 
 ## Contact Form
 
-The contact form submits directly from the
+Both the current portfolio and the Direction C redesign submit directly from the
 browser to [Web3Forms](https://web3forms.com/). No PHP server is required.
 
 To activate delivery:
@@ -92,8 +111,8 @@ Web3Forms runs its own spam checks. Additional hCaptcha protection can be enable
 in its dashboard and integrated later; it is not enabled by this code. Plan
 limits and delivery behavior are managed by the provider.
 
-The files in `api/` are retained legacy PHP-host support and are not used by
-the current contact form. No SMTP credentials are
+The files in `api/` and `src/utils/contactApi.js` are retained legacy PHP-host
+support, and are not used by either current contact form. No SMTP credentials are
 needed for Web3Forms.
 
 ## Build
@@ -104,23 +123,42 @@ Create a production build with:
 npm run build
 ```
 
+Quality checks:
+
+```bash
+npm run lint
+npm test
+npm run test:ui
+```
+
+UI tests start a loopback-only Vite server on port 5183 with a test-only public form key and intercept Web3Forms submissions; they do not send email. Windows uses installed Google Chrome. On other systems install Playwright Chromium first with `npx playwright install chromium`.
+
 ## Live Deployment
 
 ### Vercel
 
-Push a validated commit to the connected production branch. Vercel builds and
-publishes the frontend; `vercel.json` enables direct links to React page routes.
-The Web3Forms access key must be set before building. No PHP server is required.
-After deploying, verify the form in the browser and confirm an authorized test
-message arrives in the recipient inbox.
+The root `vercel.json` serves `index.html` for the React page routes, including
+`/case-studies/digital-marketing` and `/projects/<slug>`. This enables direct links
+and page refreshes on Vercel, which does not use Apache's `.htaccess`.
+The rules also cover the local redesign's Experience, Credentials and Swedish
+routes, while leaving `/api/` and static files outside the SPA rewrites.
 
-### Other static hosting
+Deploy the commit containing `vercel.json` through the connected Vercel project,
+then open and refresh the case-study URL on the production domain. Vite's local
+fallback alone does not verify Vercel routing. Configure the Web3Forms access key
+before building a deployment that includes the updated contact form.
+
+### Apache / cPanel
 
 Recommended production setup:
 
 - Upload the contents of `dist/` to your domain document root
-- Include `dist/.htaccess` when using Apache, so client-side route refreshes work
-- Configure the Web3Forms public access key before building; the legacy PHP files are not needed
+- Include `dist/.htaccess`, which enables direct access and refresh for client-side routes on Apache
+- Configure the Web3Forms access key before building; the contact form does not require a PHP-capable host
+- Existing legacy server configuration is not part of the frontend upload
+- Do not upload `src/`, `node_modules/`, local environment files, screenshots from tests, or the handoff ZIP
+
+The build does not deploy automatically. Actual route refresh, HTTP 404 handling and email delivery must still be checked after deployment. Client-side metadata is not prerendering and does not provide per-project social previews by itself.
 
 ## GitHub
 
