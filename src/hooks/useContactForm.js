@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { contactApiUrl } from '../utils/contactApi'
+import { submitContactMessage } from '../utils/submitContactMessage'
 
 const emptyForm = { name: '', email: '', subject: '', message: '' }
 
@@ -21,25 +21,18 @@ export default function useContactForm() {
       setStatus('requiredError')
       return
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email.trim())) {
       setStatus('emailError')
       return
     }
     setIsSubmitting(true)
     setStatus('')
     try {
-      const response = await fetch(contactApiUrl(window.location, import.meta.env.BASE_URL, import.meta.env.VITE_CONTACT_API_URL), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-        signal: AbortSignal.timeout(20000),
-      })
-      const data = await response.json()
-      if (!response.ok || !data.success) throw new Error('Contact request failed')
+      await submitContactMessage(formData)
       setStatus('success')
       setFormData(emptyForm)
     } catch {
-      // Keep the draft and avoid exposing server configuration or SMTP errors.
+      // Keep the draft and avoid exposing raw provider or network errors.
       setStatus('error')
     } finally {
       setIsSubmitting(false)

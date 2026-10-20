@@ -87,14 +87,16 @@ test('full Nacka screenshot is deferred until the viewer opens', async ({ page }
 
 test('contact validates Subject, keeps failed drafts and clears successful submissions', async ({ page }) => {
   const requests = []
-  let success = false
-  await page.route('**/api/contact.php', async (route) => {
+  let response = { status: 500, contentType: 'application/json', body: JSON.stringify({ success: true }) }
+  await page.route('https://api.web3forms.com/**', async (route) => {
     if (route.request().method() === 'OPTIONS') {
       await route.fulfill({ status: 204, headers: { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, OPTIONS', 'access-control-allow-headers': 'Content-Type' } })
       return
     }
+    expect(route.request().url()).toBe('https://api.web3forms.com/submit')
+    expect(route.request().method()).toBe('POST')
     requests.push(route.request().postDataJSON())
-    await route.fulfill({ status: success ? 200 : 500, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify({ success }) })
+    await route.fulfill({ ...response, headers: { 'access-control-allow-origin': '*' } })
   })
   await page.goto('/sv/')
   await page.locator('#contact-name').fill('Åsa')
@@ -104,14 +106,109 @@ test('contact validates Subject, keeps failed drafts and clears successful submi
   await expect(page.locator('#contact-subject')).toBeFocused()
   expect(requests).toHaveLength(0)
   await page.locator('#contact-subject').fill('Projekt')
-  await page.getByRole('button', { name: 'Skicka meddelande' }).click()
-  await expect(page.getByRole('alert')).toBeVisible()
-  await expect(page.locator('#contact-message')).toHaveValue('Hej')
-  expect(requests[0]).toEqual({ name: 'Åsa', email: 'test@example.test', subject: 'Projekt', message: 'Hej' })
-  success = true
+  const failures = [
+    response,
+    { status: 200, contentType: 'application/json', body: JSON.stringify({ success: false }) },
+    { status: 200, contentType: 'text/html', body: '<html>Service unavailable</html>' },
+  ]
+  for (const [index, failure] of failures.entries()) {
+    response = failure
+    await page.getByRole('button', { name: 'Skicka meddelande' }).click()
+    await expect(page.getByRole('alert')).toBeVisible()
+    await expect(page.locator('#contact-message')).toHaveValue('Hej')
+    await expect(page.locator('#contact-subject')).toHaveValue('Projekt')
+    await expect(page.locator('#contact-email')).toHaveValue('test@example.test')
+    await expect(page.locator('#contact-name')).toHaveValue('Åsa')
+    expect(requests).toHaveLength(index + 1)
+    expect(requests[index]).toEqual({
+      access_key: 'test-public-form-key',
+      from_name: 'Osman Osmani Portfolio',
+      name: 'Åsa',
+      email: 'test@example.test',
+      subject: 'Portfolio Contact: Projekt',
+      message: 'Hej',
+    })
+  }
+  response = { status: 200, contentType: 'application/json', body: JSON.stringify({ success: true }) }
   await page.getByRole('button', { name: 'Skicka meddelande' }).click()
   await expect(page.getByRole('status')).toContainText('Tack')
-  await expect(page.locator('#contact-message')).toHaveValue('')
+  for (const field of ['name', 'email', 'subject', 'message']) await expect(page.locator(`#contact-${field}`)).toHaveValue('')
+  expect(requests).toHaveLength(failures.length + 1)
+})
+
+test('contact disables the form until the service answers', async ({ page }) => {
+  let pendingRoute
+  let requests = 0
+  await page.route('https://api.web3forms.com/**', async (route) => {
+    if (route.request().method() === 'OPTIONS') {
+      await route.fulfill({ status: 204, headers: { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, OPTIONS', 'access-control-allow-headers': 'Content-Type' } })
+      return
+    }
+    requests += 1
+    pendingRoute = route
+  })
+  await page.goto('/')
+  for (const [field, value] of Object.entries({ name: 'Test Visitor', email: 'test@example.test', subject: 'Test', message: 'Mock submission only' })) {
+    await page.locator(`#contact-${field}`).fill(value)
+  }
+  await page.getByRole('button', { name: 'Send message', exact: true }).click()
+  await expect.poll(() => requests).toBe(1)
+  await expect(page.locator('.dc-contact-form')).toHaveAttribute('aria-busy', 'true')
+  await expect(page.locator('.dc-contact-form button[type="submit"]')).toBeDisabled()
+  for (const field of ['name', 'email', 'subject', 'message']) await expect(page.locator(`#contact-${field}`)).toBeDisabled()
+  await pendingRoute.fulfill({
+    status: 200,
+    contentType: 'application/json',
+    headers: { 'access-control-allow-origin': '*' },
+    body: JSON.stringify({ success: true }),
+  })
+  await expect(page.getByRole('status')).toBeVisible()
+  await expect(page.locator('.dc-contact-form')).toHaveAttribute('aria-busy', 'false')
+  await expect(page.locator('.dc-contact-form button[type="submit"]')).toBeEnabled()
+  expect(requests).toBe(1)
+})
+
+test('legacy contact form validates, keeps failed drafts and sends through Web3Forms', async ({ page }) => {
+  const requests = []
+  let success = false
+  // Render the current production component independently of the redesign's Home route.
+  await page.route('**/src/main.jsx', (route) => route.fulfill({
+    contentType: 'application/javascript',
+    body: `import React from '/node_modules/.vite/deps/react.js';
+      import ReactDOM from '/node_modules/.vite/deps/react-dom_client.js';
+      import Contact from '/src/components/Contact.jsx';
+      ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(Contact));`,
+  }))
+  await page.route('https://api.web3forms.com/**', async (route) => {
+    if (route.request().method() === 'OPTIONS') {
+      await route.fulfill({ status: 204, headers: { 'access-control-allow-origin': '*', 'access-control-allow-methods': 'POST, OPTIONS', 'access-control-allow-headers': 'Content-Type' } })
+      return
+    }
+    expect(route.request().url()).toBe('https://api.web3forms.com/submit')
+    requests.push(route.request().postDataJSON())
+    await route.fulfill({ status: 200, contentType: 'application/json', headers: { 'access-control-allow-origin': '*' }, body: JSON.stringify({ success }) })
+  })
+  await page.goto('/')
+  await page.getByRole('button', { name: 'Send Message', exact: true }).click()
+  await expect(page.locator('#name')).toBeFocused()
+  expect(requests).toHaveLength(0)
+  const draft = { name: 'Åsa Öberg', email: 'test@example.test', subject: 'Förfrågan', message: 'A mocked test message' }
+  for (const [field, value] of Object.entries(draft)) await page.locator(`#${field}`).fill(value)
+  await page.getByRole('button', { name: 'Send Message', exact: true }).click()
+  await expect(page.getByRole('alert')).toBeVisible()
+  await expect(page.getByRole('alert').getByRole('link')).toHaveAttribute('href', 'mailto:osmanosmani@gmail.com')
+  for (const [field, value] of Object.entries(draft)) await expect(page.locator(`#${field}`)).toHaveValue(value)
+  expect(requests).toEqual([{
+    access_key: 'test-public-form-key',
+    from_name: 'Osman Osmani Portfolio',
+    ...draft,
+    subject: 'Portfolio Contact: Förfrågan',
+  }])
+  success = true
+  await page.getByRole('button', { name: 'Send Message', exact: true }).click()
+  await expect(page.getByRole('status')).toContainText('Your message has been sent successfully.')
+  for (const field of Object.keys(draft)) await expect(page.locator(`#${field}`)).toHaveValue('')
+  expect(requests).toHaveLength(2)
 })
 
 test('reduced motion disables Home entrance animations', async ({ page }) => {

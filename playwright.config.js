@@ -13,7 +13,8 @@ export default defineConfig({
   },
   webServer: {
     command: 'npm run dev -- --host 127.0.0.1 --port 5183 --strictPort',
+    env: { VITE_WEB3FORMS_ACCESS_KEY: 'test-public-form-key' },
     url: 'http://127.0.0.1:5183',
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: false,
   },
 })
