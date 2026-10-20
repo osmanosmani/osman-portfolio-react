@@ -30,8 +30,9 @@ test('contact sends one normalized Web3Forms request without changing the draft'
   const [url, options] = calls[0]
   assert.equal(url, 'https://api.web3forms.com/submit')
   assert.equal(options.method, 'POST')
-  assert.equal(new Headers(options.headers).get('content-type'), 'application/json')
-  assert.deepEqual(JSON.parse(options.body), {
+  assert.equal(new Headers(options.headers).get('content-type'), null)
+  assert.ok(options.body instanceof FormData)
+  assert.deepEqual(Object.fromEntries(options.body), {
     access_key: accessKey,
     from_name: 'Osman Osmani Portfolio',
     ...draft,
