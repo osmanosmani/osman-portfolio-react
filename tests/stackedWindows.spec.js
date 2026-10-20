@@ -129,3 +129,61 @@ test('reduced motion switches windows without transition or entrance animation',
   })
   expect(transitionsDisabled).toBe(true)
 })
+
+test('thumbnail selectors and window titles stay synchronized on mobile and desktop', async ({ page }) => {
+  for (const width of [320, 1280]) {
+    await page.setViewportSize({ width, height: 1000 })
+    await page.goto('/')
+    const chooser = page.getByRole('group', { name: 'Choose a project', exact: true })
+    const buttons = chooser.getByRole('button')
+    await expect(buttons).toHaveCount(3)
+    for (const [index, project] of previews.entries()) {
+      const button = chooser.getByRole('button', { name: project.title, exact: true })
+      if (width > 860) await expect(button.locator('img')).toBeVisible()
+      else await expect(button.locator('img')).toBeHidden()
+      await expect(button.locator('.dc-tab-number')).toHaveText(`0${index + 1}`)
+      await button.click()
+      await expectSelected(page, project)
+      await expect(button).toHaveAttribute('aria-pressed', 'true')
+      await expect(button).toHaveAttribute('aria-controls', 'project-preview-panel')
+      await expect(chooser.locator('[aria-pressed="true"]')).toHaveCount(1)
+      await expectFrontWindowGeometry(page)
+      const nextProject = previews[(index + 1) % previews.length]
+      await page.getByRole('tab', { name: nextProject.title, exact: true }).click()
+      await expectSelected(page, nextProject)
+      await expect(chooser.getByRole('button', { name: nextProject.title, exact: true })).toHaveAttribute('aria-pressed', 'true')
+      await expect(button).toHaveAttribute('aria-pressed', 'false')
+    }
+    expect(await chooser.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true)
+    for (const button of await buttons.all()) {
+      expect(await button.evaluate((element) => element.scrollWidth <= element.clientWidth + 1)).toBe(true)
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
+  }
+})
+
+test('thumbnail keyboard activation keeps focus in the lower row and selection survives Swedish', async ({ page }) => {
+  await page.goto('/')
+  const buttons = page.getByRole('group', { name: 'Choose a project', exact: true }).getByRole('button')
+  await buttons.first().focus()
+  await page.keyboard.press('Tab')
+  await expect(buttons.nth(1)).toBeFocused()
+  await page.keyboard.press('Enter')
+  await expectSelected(page, previews[1])
+  await page.keyboard.press('Tab')
+  await expect(buttons.nth(2)).toBeFocused()
+  await page.keyboard.press('Space')
+  await expectSelected(page, previews[2])
+  for (const [key, selected] of [['ArrowRight', 0], ['End', 2], ['Home', 0], ['ArrowLeft', 2]]) {
+    await page.keyboard.press(key)
+    await expect(buttons.nth(selected)).toBeFocused()
+    await expect(buttons.nth(selected)).toHaveAttribute('aria-pressed', 'true')
+    await expectSelected(page, previews[selected])
+  }
+  await page.locator('.dc-header').getByRole('button', { name: 'Svenska', exact: true }).click()
+  const swedishChooser = page.getByRole('group', { name: 'Välj projekt', exact: true })
+  await expectSelected(page, previews[2], 'sv')
+  await expect(swedishChooser.getByRole('button', { name: 'Nacka Byggpartner', exact: true })).toHaveAttribute('aria-pressed', 'true')
+  await swedishChooser.getByRole('button', { name: 'CineScope', exact: true }).click()
+  await expectSelected(page, previews[1], 'sv')
+})

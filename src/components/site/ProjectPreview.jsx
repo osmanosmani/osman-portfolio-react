@@ -46,6 +46,7 @@ export default function ProjectPreview({ projects, language, text, projectCount 
   const selectedIndex = windowOrder[windowOrder.length - 1]
   const [viewerOpen, setViewerOpen] = useState(false)
   const tabRefs = useRef([])
+  const shortcutRefs = useRef([])
   const viewerButton = useRef(null)
   const project = projects[selectedIndex]
   const preview = project.homePreview
@@ -54,7 +55,7 @@ export default function ProjectPreview({ projects, language, text, projectCount 
     setWindowOrder((current) => current[current.length - 1] === index ? current : [...current.filter((item) => item !== index), index])
   }
 
-  function handleTabKey(event, index) {
+  function handleTabKey(event, index, refs = tabRefs) {
     let next
     if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = (index + 1) % projects.length
     if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = (index - 1 + projects.length) % projects.length
@@ -63,7 +64,7 @@ export default function ProjectPreview({ projects, language, text, projectCount 
     if (next === undefined) return
     event.preventDefault()
     selectProject(next)
-    tabRefs.current[next]?.focus()
+    refs.current[next]?.focus()
   }
 
   return (
@@ -91,6 +92,20 @@ export default function ProjectPreview({ projects, language, text, projectCount 
               style={{ '--preview-width': `${preview.mobileWidth}px`, '--preview-x': `${preview.mobileX}px`, '--preview-y': `${preview.mobileY}px` }} />
           </div>
         </figure>
+      </div>
+      <div className="dc-project-tabs" role="group" aria-label={text.projectShortcuts}>
+        {projects.map((item, index) => (
+          <button type="button" key={item.slug} ref={(element) => { shortcutRefs.current[index] = element }}
+            aria-label={item.shortTitle} aria-pressed={index === selectedIndex} aria-controls="project-preview-panel"
+            onClick={() => selectProject(index)} onKeyDown={(event) => handleTabKey(event, index, shortcutRefs)}>
+            <img className="dc-tab-thumbnail" src={item.homePreview.src} alt="" width="144" height="90" loading="lazy" />
+            <span className="dc-tab-label">
+              <span className="dc-tab-number" aria-hidden="true">0{index + 1}</span>
+              <span className="dc-tab-full-name">{item.shortTitle}</span>
+              <span className="dc-tab-short-name" aria-hidden="true">{item.compactTitle || item.shortTitle}</span>
+            </span>
+          </button>
+        ))}
       </div>
       <div className="dc-preview-caption tw:flex tw:flex-wrap tw:items-center tw:justify-between tw:gap-2">
         <span>{preview.caption[language]}{preview.demo && <> · <strong>{text.demoData}</strong></>}</span>
