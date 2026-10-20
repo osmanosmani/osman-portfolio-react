@@ -118,6 +118,24 @@ body { background: var(--dc-bg); }
 .dc-stack { margin-bottom: 28px !important; font-size: 14px; color: var(--dc-muted); }
 .dc-stack strong { color: var(--dc-ink); margin-right: 6px; }
 .dc-flagship-image .dc-screenshot-window { aspect-ratio: 1904/919; }
+.dc-credential-link { display: inline-block; padding-top: 6px; color: var(--dc-accent) !important; text-decoration: underline; text-underline-offset: 4px; }
+
+/* Selected digital communications and marketing work. */
+.dc-marketing { padding-top: 80px; }
+.dc-marketing-heading { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 28px; }
+.dc-marketing-heading > div { flex: 1 1 480px; max-width: 720px; }
+.dc-marketing-heading .dc-muted { margin-top: 14px !important; max-width: 68ch; }
+.dc-marketing-grid { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; }
+.dc-marketing-grid li { min-width: 0; }
+.dc-marketing-card { display: flex; flex-direction: column; height: 100%; border: 1px solid var(--dc-hair); background: var(--dc-surface); text-decoration: none; }
+.dc-marketing-card:hover { border-color: var(--dc-accent); }
+.dc-marketing-card img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: top; border-bottom: 1px solid var(--dc-hair); }
+.dc-marketing-card-body { padding: 20px; }
+.dc-marketing-period { display: block; margin-bottom: 8px; color: var(--dc-muted); font-size: 13px; }
+.dc-marketing-card h3 { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 10px; font-size: 20px; font-weight: 600; }
+.dc-marketing-card h3 span { color: var(--dc-accent); }
+.dc-marketing-card p { color: var(--dc-muted); font-size: 14px; }
+
 .dc-background { padding-top: 80px; }
 .dc-background-grid, .dc-contact-grid { display: grid; grid-template-columns: minmax(0, 4fr) minmax(0, 8fr); gap: 64px; }
 .dc-background-intro { margin: 14px 0 6px !important; max-width: 36ch; }
@@ -127,7 +145,7 @@ body { background: var(--dc-bg); }
 .dc-role-year, .dc-role-company { font-size: 14px; color: var(--dc-muted); }
 .dc-role-company { text-align: right; }
 
-/* Contact retains the existing PHP JSON contract. */
+/* Contact details and Web3Forms submission. */
 .dc-contact { padding: 80px 0 88px; scroll-margin-top: 24px; }
 .dc-contact-grid { padding-top: 40px; border-top: 1px solid var(--dc-hair); }
 .dc-contact-intro { margin: 14px 0 18px !important; }
@@ -162,6 +180,7 @@ body { background: var(--dc-bg); }
 /* Shared footer and retained content pages. */
 .dc-footer { border-top: 1px solid var(--dc-hair); font-size: 14px; color: var(--dc-muted); }
 .dc-footer .dc-wrap { padding-top: 22px; padding-bottom: 22px; }
+.dc-footer-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
 .dc-footer strong, .dc-footer nav { color: var(--dc-ink); }
 .dc-footer nav a { display: inline-flex; align-items: center; min-height: 44px; }
 .dc-footer .dc-language { margin-left: auto; }
@@ -219,7 +238,8 @@ body { background: var(--dc-bg); }
   .dc-root .dc-display-project { font-size: 42px; }
   .dc-root h2:where(:not(.dc-legacy *)) { font-size: 25px; }
   .dc-project-summary { font-size: 16px; }
-  .dc-background { padding-top: 48px; }
+  .dc-marketing, .dc-background { padding-top: 48px; }
+  .dc-marketing-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
   .dc-role-list li { grid-template-columns: 1fr; gap: 3px; }
   .dc-role-company { grid-column: 1; }
   .dc-contact { padding: 48px 0 56px; }

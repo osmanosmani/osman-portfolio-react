@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { professionalProfile } from '../../data/profile'
+import { digitalMarketingPage } from '../../data/caseStudies'
 import { changeLanguage, focusSection, localizedPath } from '../../utils/navigation'
 import ExternalLink from './ExternalLink'
 
@@ -79,14 +80,17 @@ export function SiteHeader({ language, text, path }) {
 export function SiteFooter({ language, text, projectCount }) {
   return (
     <footer className="dc-footer">
-      <div className="dc-wrap tw:flex tw:flex-wrap tw:items-center tw:gap-x-7 tw:gap-y-2">
-        <p><strong>Osman Osmani</strong> · {text.footer}</p>
+      <div className="dc-wrap">
+        <div className="dc-footer-heading">
+          <p><strong>Osman Osmani</strong> · {text.footer}</p>
+          <LanguageSwitch language={language} text={text} />
+        </div>
         <nav className="tw:flex tw:flex-wrap tw:gap-x-5" aria-label={text.footerNav}>
           <a href={localizedPath('/projects', language)}>{text.allProjects} ({projectCount})</a>
+          <a href={localizedPath(digitalMarketingPage.path, language)}>{text.marketingTitle}</a>
           <ExternalLink href={professionalProfile.linkedin} newTabText={text.newTab}>LinkedIn</ExternalLink>
           <ExternalLink href="https://github.com/osmanosmani" newTabText={text.newTab}>GitHub</ExternalLink>
         </nav>
-        <LanguageSwitch language={language} text={text} />
       </div>
     </footer>
   )

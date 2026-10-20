@@ -9,6 +9,8 @@ import {
 } from '../data/projects'
 import { getProjectStatusClass } from '../utils/projectStatus'
 import { localizedPath } from '../utils/navigation'
+import { digitalMarketingPage } from '../data/caseStudies'
+import { homeContent } from '../data/homeContent'
 
 function Portfolio({ language = 'en' }) {
   const [selectedProject, setSelectedProject] = useState(null)
@@ -226,9 +228,9 @@ function Portfolio({ language = 'en' }) {
             Selected website and digital platform work delivered through previous professional roles,
             including public sector, corporate, and freelance environments.
           </p>
-          <a href={localizedPath('/case-studies/digital-marketing', language)} className="project-link">
+          <a href={localizedPath(digitalMarketingPage.path, language)} className="project-link" lang={language}>
             <i className="bi bi-arrow-right" aria-hidden="true"></i>
-            Digital communications & marketing context
+            {homeContent[language].marketingTitle}
           </a>
         </div>
 

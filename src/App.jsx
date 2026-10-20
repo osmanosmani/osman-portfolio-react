@@ -32,7 +32,7 @@ function App() {
   useEffect(() => {
     document.documentElement.lang = language
     const label = project?.title || (isMarketingPage ? digitalMarketingPage.title : section ? text.nav[section] : notFound ? text.notFound : '')
-    const title = label ? `${label} | Osman Osmani` : professionalProfile.title
+    const title = isMarketingPage ? digitalMarketingPage.title : label ? `${label} | Osman Osmani` : professionalProfile.title
     const description = project?.shortDescription || (isMarketingPage ? digitalMarketingPage.description : isHome ? text.intro : section ? text[`${section}Intro`] : text.notFoundText)
     document.title = title
     for (const selector of ['meta[property="og:title"]', 'meta[name="twitter:title"]']) {

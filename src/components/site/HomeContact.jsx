@@ -12,6 +12,7 @@ export default function HomeContact({ text }) {
             <h2 id="contact-heading" tabIndex={-1}>{text.nav.contact}</h2>
             <p className="dc-muted dc-contact-intro">{text.contactIntro}</p>
             <ul className="dc-contact-details" role="list">
+              <li><span>{text.phone}</span><a href="tel:+46707949608">+46 70 794 9608</a></li>
               <li><span>{text.email}</span><a href="mailto:osmanosmani@gmail.com">osmanosmani@gmail.com</a></li>
               <li><span>LinkedIn</span><ExternalLink href={professionalProfile.linkedin} newTabText={text.newTab}>linkedin.com/in/osman-osmani</ExternalLink></li>
               <li><span>GitHub</span><ExternalLink href="https://github.com/osmanosmani" newTabText={text.newTab}>github.com/osmanosmani</ExternalLink></li>

@@ -4,6 +4,7 @@ import { localizedPath, focusSection } from '../utils/navigation'
 import ProjectPreview from '../components/site/ProjectPreview'
 import ExternalLink from '../components/site/ExternalLink'
 import HomeContact from '../components/site/HomeContact'
+import MarketingHighlights from '../components/site/MarketingHighlights'
 
 const previewProjects = projects.filter((project) => project.homePreview).sort((a, b) => a.homePreview.order - b.homePreview.order)
 
@@ -28,7 +29,7 @@ export default function HomePage({ language, text }) {
             </div>
             <div className="dc-byline tw:flex tw:items-center tw:gap-4">
               <img src={portrait} alt="Osman Osmani" width="64" height="80" decoding="async" />
-              <p><strong>{text.location}</strong>{text.availability}<br />{text.apl}</p>
+              <p><strong>{text.location}</strong>{text.availability}<br />{text.apl}<br /><a className="dc-credential-link" href={`${localizedPath('/credentials', language)}#azure-certification`}>{text.azureCredential}</a></p>
             </div>
           </div>
           <ProjectPreview projects={previewProjects} projectCount={projects.length} language={language} text={text} />
@@ -57,6 +58,7 @@ export default function HomePage({ language, text }) {
           </div>
         </div>
       </section>
+      <MarketingHighlights language={language} text={text} />
       <section className="dc-background" aria-labelledby="background-heading">
         <div className="dc-wrap dc-background-grid">
           <div><h2 id="background-heading">{text.background}</h2><p className="dc-muted dc-background-intro">{text.backgroundIntro}</p>
